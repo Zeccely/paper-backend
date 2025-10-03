@@ -23,9 +23,9 @@ public class FileServiceImpl implements FileService {
 
 
     public FileDTO addAFile(FileDTO fileDTO) {
-        File filey = FileMapper.toFile(fileDTO); //make this a normal file first
-        filesinmemory.add(filey); //save this into database/list
-        return FileMapper.toFileDTO(filey); //give me back the dto of what I saved
+        File file = FileMapper.toFile(fileDTO); //make this a normal file first
+        filesinmemory.add(file); //save this into database/list
+        return FileMapper.toFileDTO(file); //give me back the dto of what I saved
     }
 
 
