@@ -1,5 +1,6 @@
 variables:
   GRADLE_OPTS: "-Dorg.gradle.daemon=false"
+  PATH: '$PATH:C:\Program Files\Git\cmd'
 
 stages:
   - build
