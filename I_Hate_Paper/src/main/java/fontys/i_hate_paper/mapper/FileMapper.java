@@ -9,8 +9,6 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
 public class FileMapper {
     public static FileDTO toFileDTO(File file) {
         return new FileDTO(
