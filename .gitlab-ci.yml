@@ -7,12 +7,10 @@ stages:
 
 build:
   stage: build
-  tags: ["pcathome"]
   script:
     - ./gradlew assemble
   
 test:
   stage: test
-  tags: ["pcathome"]
   script:
     - ./gradlew test 
