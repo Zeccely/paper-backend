@@ -9,9 +9,9 @@ stages:
 build:
   stage: build
   script:
-    - .\gradlew.bat assemble
+    - ./gradlew assemble
   
 test:
   stage: test
   script:
-    - .\gradlew.bat test
+    - ./gradlew test 
