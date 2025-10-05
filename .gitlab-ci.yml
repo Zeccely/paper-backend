@@ -11,7 +11,7 @@ build:
   before_script:
     - cd "$Env:CI_PROJECT_DIR\I_Hate_Paper"
   script:
-    - '& ".\I_Hate_Paper\gradlew.bat" assemble'
+    - .\gradlew.bat assemble
   
 test:
   stage: test
