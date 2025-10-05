@@ -9,7 +9,7 @@ stages:
 build:
   stage: build
   script:
-    - .I_Hate_Paper\gradlew assemble
+    - '& ".\I_Hate_Paper\gradlew.bat" assemble'
   
 test:
   stage: test
