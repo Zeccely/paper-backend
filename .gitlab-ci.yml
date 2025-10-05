@@ -1,6 +1,7 @@
 variables:
   GRADLE_OPTS: "-Dorg.gradle.daemon=false"
 
+
 stages:
   - build
   - test
@@ -8,9 +9,9 @@ stages:
 build:
   stage: build
   script:
-    - ./gradlew assemble
+    - .\gradlew assemble
   
 test:
   stage: test
   script:
-    - ./gradlew test 
+    - .\gradlew test 
