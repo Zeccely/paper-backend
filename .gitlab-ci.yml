@@ -15,5 +15,7 @@ build:
   
 test:
   stage: test
+  before_script:
+    - cd "$Env:CI_PROJECT_DIR\I_Hate_Paper"
   script:
     - .\gradlew test 
