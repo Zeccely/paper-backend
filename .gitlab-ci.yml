@@ -10,7 +10,7 @@ build:
   stage: build
   script:
     - gradle build
-    - .\gradlew.bat build
+    - .\gradlew.bat clean build
   
 test:
   stage: test
