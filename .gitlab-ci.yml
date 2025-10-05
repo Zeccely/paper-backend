@@ -8,6 +8,8 @@ stages:
 
 build:
   stage: build
+  before_script:
+    - dir
   script:
     - .\gradlew assemble
   
