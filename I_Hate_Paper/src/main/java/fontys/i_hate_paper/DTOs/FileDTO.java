@@ -12,10 +12,6 @@ import java.util.Date;
 
 public class FileDTO {
     private String Title;
-    private FileType FileType;
     private String Description;
-    private LocalDateTime Deadline;
-    private Date Added_At;
-    private boolean Is_Handled;
-    private String picture_path;
+
 }
