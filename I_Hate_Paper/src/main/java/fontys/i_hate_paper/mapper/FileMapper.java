@@ -2,9 +2,7 @@ package fontys.i_hate_paper.mapper;
 
 import fontys.i_hate_paper.DTOs.FileDTO;
 import fontys.i_hate_paper.Models.File;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter

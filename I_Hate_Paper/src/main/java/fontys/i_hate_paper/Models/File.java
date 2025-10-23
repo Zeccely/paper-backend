@@ -13,11 +13,11 @@ import java.util.Date;
 @NoArgsConstructor
 public class File {
     private String Title;
-    private FileType FileType;
+    private Category Category;
     private String Description;
     private LocalDateTime Deadline;
-    private Date Added_At;
-    private boolean Is_Handled;
+    private Date Added_At = new Date();
+    private boolean Is_Handled = false;
     private String picture_path;
 
 
