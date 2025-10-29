@@ -1,4 +1,5 @@
 package fontys.i_hate_paper.Models;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,9 +12,15 @@ import java.util.Date;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class File {
+@Entity
+public class Document {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+    @Column (unique = true)
     private String Title;
-    private Category Category;
+    //@Column (nullable = false)
+    private Integer CategoryID;
     private String Description;
     private LocalDateTime Deadline;
     private Date Added_At = new Date();

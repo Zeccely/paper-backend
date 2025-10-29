@@ -1,0 +1,12 @@
+package fontys.i_hate_paper.Service;
+
+import fontys.i_hate_paper.DTOs.DocumentDTO;
+
+import java.util.List;
+
+public interface DocumentService {
+    DocumentDTO addAFile(DocumentDTO documentDTO);
+    List<DocumentDTO> getTheFiles();
+    DocumentDTO checkReturn(DocumentDTO documentDTO);
+
+}
