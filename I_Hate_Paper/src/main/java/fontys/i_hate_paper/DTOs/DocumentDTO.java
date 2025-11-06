@@ -19,7 +19,7 @@ public class DocumentDTO {
     private Integer CategoryID;
     private Date Added_At = new Date();
     private boolean Is_Handled = false;
-    private String FileName;
+    private MultipartFile File;
 
 
 }

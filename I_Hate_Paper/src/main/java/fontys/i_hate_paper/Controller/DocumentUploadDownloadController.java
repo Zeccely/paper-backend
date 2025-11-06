@@ -16,9 +16,8 @@ public class DocumentUploadDownloadController {
     FileStorageService fileStorageService;
 
     @PostMapping(path = "/upload", consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
-    public DocumentDTO getDocument(@RequestPart("file") MultipartFile file, @RequestPart("data") DocumentDTO dto) {
-        dto.setFileName(file.getOriginalFilename());
-        fileStorageService.saveDocument(DocumentMapper.toFile(dto));
+    public DocumentDTO getDocument(@ModelAttribute DocumentDTO dto) {
+        fileStorageService.saveDocument(dto);
         return dto;
     }
 
