@@ -17,7 +17,7 @@ public class DocumentController {
 
     private DocumentService documentService;
 
-    @PostMapping
+    @PostMapping("/addfile")
     public ResponseEntity<DocumentDTO> addAFile(@RequestBody DocumentDTO documentDTO) {
         DocumentDTO thing = documentService.addAFile(documentDTO);
         return new ResponseEntity<>(thing, HttpStatus.CREATED);

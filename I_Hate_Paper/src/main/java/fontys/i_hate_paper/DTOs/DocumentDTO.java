@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
 
@@ -18,6 +19,7 @@ public class DocumentDTO {
     private Integer CategoryID;
     private Date Added_At = new Date();
     private boolean Is_Handled = false;
+    private String FileName;
 
 
 }

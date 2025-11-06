@@ -25,7 +25,7 @@ public class Document {
     private LocalDateTime Deadline;
     private Date Added_At = new Date();
     private boolean Is_Handled = false;
-    private String picture_path;
+    private String Document_Path;
 
 
 }
