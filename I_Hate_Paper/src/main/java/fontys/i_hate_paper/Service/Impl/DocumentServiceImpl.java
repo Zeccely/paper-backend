@@ -16,18 +16,18 @@ import java.util.List;
 @RequiredArgsConstructor
 public class DocumentServiceImpl implements DocumentService {
 
-    private final DocumentRepository fileRepository;
+    private final DocumentRepository docRepository;
 
     public DocumentDTO addAFile(DocumentDTO documentDTO) {
         Document file = DocumentMapper.toFile(documentDTO); //make this a normal file first
-        fileRepository.save(file); //save this into database/list
+        docRepository.save(file); //save this into database/list
         return DocumentMapper.toFileDTO(file); //give me back the dto of what I saved
     }
 
 
     public List<DocumentDTO> getTheFiles() {
         List<DocumentDTO> secrets = new ArrayList<>();
-        for (Document file : fileRepository.findAll()){
+        for (Document file : docRepository.findAll()){
             secrets.add(DocumentMapper.toFileDTO(file));
         }
        return secrets;
@@ -36,7 +36,7 @@ public class DocumentServiceImpl implements DocumentService {
     @Override
     public DocumentDTO checkReturn(DocumentDTO documentDTO) {
         Document file = DocumentMapper.toFile(documentDTO);
-        if (fileRepository.findById(file.getId()).isPresent()) {
+        if (docRepository.findById(file.getId()).isPresent()) {
             return DocumentMapper.toFileDTO(file);
         }
         return null;

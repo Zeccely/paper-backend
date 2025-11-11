@@ -4,6 +4,7 @@ package fontys.i_hate_paper.Service.Impl;
 import fontys.i_hate_paper.DTOs.DocumentDTO;
 import fontys.i_hate_paper.Models.Document;
 import fontys.i_hate_paper.Service.FileStorageService;
+import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -13,7 +14,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-
+@Service
 public class FileStorageServiceImpl implements FileStorageService {
 
     @Override

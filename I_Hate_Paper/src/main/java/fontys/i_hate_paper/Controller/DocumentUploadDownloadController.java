@@ -1,23 +1,31 @@
 package fontys.i_hate_paper.Controller;
 
 import fontys.i_hate_paper.DTOs.DocumentDTO;
+import fontys.i_hate_paper.Service.DocumentService;
 import fontys.i_hate_paper.Service.FileStorageService;
-import fontys.i_hate_paper.mapper.DocumentMapper;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/files")
 public class DocumentUploadDownloadController {
 
-    FileStorageService fileStorageService;
+    private final DocumentService documentService;
+    private final FileStorageService fileStorageService;
 
-    @PostMapping(path = "/upload", consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
+    public DocumentUploadDownloadController(DocumentService documentService, FileStorageService fileStorageService) {
+        this.documentService = documentService;
+        this.fileStorageService = fileStorageService;
+    }
+
+    @PostMapping(path = "/upload", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public DocumentDTO getDocument(@ModelAttribute DocumentDTO dto) {
         fileStorageService.saveDocument(dto);
+        documentService.addAFile(dto);
+
         return dto;
     }
 
