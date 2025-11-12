@@ -7,6 +7,6 @@ import java.util.List;
 public interface DocumentService {
     DocumentDTO addAFile(DocumentDTO documentDTO);
     List<DocumentDTO> getTheFiles();
-    DocumentDTO checkReturn(DocumentDTO documentDTO);
+    DocumentDTO checkReturn(DocumentDTO documentDTO); //this part should be in the logic of adding a file
 
 }

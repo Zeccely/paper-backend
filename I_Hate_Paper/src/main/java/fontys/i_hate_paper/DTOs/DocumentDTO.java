@@ -17,7 +17,6 @@ public class DocumentDTO {
     private String Title;
     private String Description;
     private Integer CategoryID;
-    private Date Added_At = new Date();
     private boolean Is_Handled = false;
     private MultipartFile File;
 

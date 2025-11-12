@@ -5,6 +5,8 @@ import fontys.i_hate_paper.Models.Document;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 public class DocumentMapper {
@@ -12,7 +14,6 @@ public class DocumentMapper {
         DocumentDTO documentDTO = new DocumentDTO();
         documentDTO.setDescription(file.getDescription());
         documentDTO.setTitle(file.getTitle());
-        documentDTO.setAdded_At(file.getAdded_At());
         documentDTO.setIs_Handled(file.isIs_Handled());
         return documentDTO;
 
@@ -21,7 +22,6 @@ public class DocumentMapper {
         Document file = new Document();
         file.setDescription(documentDTO.getDescription());
         file.setTitle(documentDTO.getTitle());
-        file.setAdded_At(documentDTO.getAdded_At());
 
         return file;
     }

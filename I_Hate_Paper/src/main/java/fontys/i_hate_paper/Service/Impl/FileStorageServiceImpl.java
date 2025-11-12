@@ -24,15 +24,16 @@ public class FileStorageServiceImpl implements FileStorageService {
 
     @Override
     public void saveDocument(DocumentDTO document) {
-        MultipartFile incomingdoc = document.getFile();
-        String filePath = "C:\\Users\\jepis\\Desktop\\Dokks" + File.separator + incomingdoc.getOriginalFilename();
+        MultipartFile incoming_doc = document.getFile();
+        String filePath = "C:\\Users\\jepis\\Desktop\\Dokks" + File.separator + incoming_doc.getOriginalFilename();
 
-        try{
-            FileOutputStream output = new FileOutputStream(filePath);
-            output.write(incomingdoc.getBytes());
+        try (FileOutputStream output = new FileOutputStream(filePath))
+        {
+
+            output.write(incoming_doc.getBytes());
 
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            System.out.println(e.getMessage()); //stack trace/logger
         } //I can't finally close? it seems the FileOutputStream closes itself?
 
 

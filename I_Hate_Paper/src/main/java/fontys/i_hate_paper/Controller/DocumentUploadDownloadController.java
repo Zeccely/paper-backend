@@ -22,11 +22,11 @@ public class DocumentUploadDownloadController {
     }
 
     @PostMapping(path = "/upload", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
-    public DocumentDTO getDocument(@ModelAttribute DocumentDTO dto) {
+    public String getDocument(@ModelAttribute DocumentDTO dto) {
         fileStorageService.saveDocument(dto);
         documentService.addAFile(dto);
 
-        return dto;
+        return "ok";
     }
 
 }
