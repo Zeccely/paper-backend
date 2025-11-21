@@ -6,7 +6,6 @@ import fontys.i_hate_paper.Models.Document;
 import fontys.i_hate_paper.Repository.DocumentRepository;
 import fontys.i_hate_paper.Service.DocumentService;
 import fontys.i_hate_paper.mapper.DocumentMapper;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -59,7 +58,7 @@ public class DocumentServiceImpl implements DocumentService {
             output.write(incoming_doc.getBytes());
 
         } catch (IOException e) {
-            System.out.println(e.getMessage()); //stack trace/logger
+            e.printStackTrace();//stack trace/logger
         }
 
         Document doc = new Document();

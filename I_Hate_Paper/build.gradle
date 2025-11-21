@@ -1,7 +1,18 @@
 plugins {
 	id 'java'
+    id 'jacoco'
 	id 'org.springframework.boot' version '3.5.6'
 	id 'io.spring.dependency-management' version '1.1.7'
+    id "org.sonarqube" version "7.0.1.6134"
+}
+
+sonar {
+    properties {
+        property "sonar.projectName", "Ihatepaperbackend"
+        property "sonar.projectKey", "Ihatepaperbackend"
+        property "sonar.host.url", "http://localhost:9000/"
+        property "sonar.token", "sqp_7f7e29dbdd4e43a31e3c3a2d4cdb0d16c4334a78"
+    }
 }
 
 group = 'fontys'
@@ -10,7 +21,7 @@ description = 'I_Hate_Paper'
 
 java {
 	toolchain {
-		languageVersion = JavaLanguageVersion.of(17)
+		languageVersion = JavaLanguageVersion.of(21)
 	}
 }
 
@@ -39,3 +50,16 @@ dependencies {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+jacoco {
+    toolVersion = "0.8.10"
+}
+
+tasks.jacocoTestReport {
+    dependsOn tasks.test
+    reports {
+        xml.required = true
+        html.required = true
+    }
+}
+
