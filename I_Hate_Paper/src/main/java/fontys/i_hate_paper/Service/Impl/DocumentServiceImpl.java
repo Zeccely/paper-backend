@@ -61,6 +61,8 @@ public class DocumentServiceImpl implements DocumentService {
             e.printStackTrace();//stack trace/logger
         }
 
+        //should I set it here or should I use mappers to get them from the frontend? will continue later
+
         Document doc = new Document();
         doc.setTitle(Title);
         doc.setFileUUID(Uuid);
