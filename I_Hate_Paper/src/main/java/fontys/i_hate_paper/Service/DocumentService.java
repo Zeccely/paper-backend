@@ -1,13 +1,14 @@
 package fontys.i_hate_paper.Service;
 
 import fontys.i_hate_paper.DTOs.DocumentDTO;
+import org.springframework.core.io.Resource;
+
 
 import java.util.List;
 
 public interface DocumentService {
-    DocumentDTO addAFile(DocumentDTO documentDTO);
-    List<DocumentDTO> getTheFiles();
-    void saveDocument(DocumentDTO document);
+    Resource getDocumentByUUID(String UUID);
+    DocumentDTO saveDocument(DocumentDTO document);
     DocumentDTO checkReturn(DocumentDTO documentDTO); //this part should be in the logic of adding a file
 
 }

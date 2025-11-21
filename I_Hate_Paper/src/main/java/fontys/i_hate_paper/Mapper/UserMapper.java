@@ -1,4 +1,4 @@
-package fontys.i_hate_paper.mapper;
+package fontys.i_hate_paper.Mapper;
 
 import fontys.i_hate_paper.DTOs.UserDTO;
 import fontys.i_hate_paper.Models.User;
