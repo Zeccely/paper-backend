@@ -7,22 +7,20 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.Date;
-
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 
 public class DocumentDTO {
-    private String Title;
-    private String Description;
-    private Integer CategoryID;
-    private boolean Is_Handled = false;
+    private String title;
+    private String description;
+    private Integer categoryID;
+    private boolean is_Handled = false;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private MultipartFile File;
+    private MultipartFile file;
     private String fileUUID;
-    private String DocumentStoredName;
+    private String documentStoredName;
 
 
 }

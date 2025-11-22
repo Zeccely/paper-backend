@@ -17,15 +17,15 @@ public class Document {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String Title;
-    private String FileUUID;
+    private String title;
+    private String fileUUID;
     //@Column (nullable = false)
-    private Integer CategoryID;
-    private String Description;
-    private LocalDateTime Deadline;
-    private Date Added_At = new Date();
-    private boolean Is_Handled = false;
-    private String DocumentStoredName;
+    private Integer categoryID;
+    private String description;
+    private LocalDateTime deadline;
+    private Date added_At = new Date();
+    private boolean is_Handled = false;
+    private String documentStoredName;
 
 
 }

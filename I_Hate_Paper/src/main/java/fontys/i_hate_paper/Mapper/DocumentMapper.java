@@ -12,7 +12,6 @@ public class DocumentMapper {
         DocumentDTO documentDTO = new DocumentDTO();
         documentDTO.setDescription(document.getDescription());
         documentDTO.setTitle(document.getTitle());
-        documentDTO.setIs_Handled(document.isIs_Handled());
         documentDTO.setFileUUID(document.getFileUUID());
 
         return documentDTO;

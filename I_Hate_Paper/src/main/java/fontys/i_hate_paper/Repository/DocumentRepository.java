@@ -8,6 +8,6 @@ import java.util.Optional;
 
 @Repository
 public interface DocumentRepository extends JpaRepository<Document, Integer> {
-    Optional<Document> findByFileUUID(String FileUUID);
+    Optional<Document> findByFileUUID(String fileUUID);
 
 }

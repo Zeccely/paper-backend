@@ -1,0 +1,6 @@
+projectKey=Ihatepaperbackend
+serverUrl=http://localhost:9000
+serverVersion=25.11.0.114957
+dashboardUrl=http://localhost:9000/dashboard?id=Ihatepaperbackend
+ceTaskId=73c085c4-68e2-41c3-b1c0-f00b472a755b
+ceTaskUrl=http://localhost:9000/api/ce/task?id=73c085c4-68e2-41c3-b1c0-f00b472a755b
