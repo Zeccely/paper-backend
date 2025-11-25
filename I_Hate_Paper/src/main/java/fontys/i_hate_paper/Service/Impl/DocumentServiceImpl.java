@@ -18,8 +18,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDate;
 import java.util.Optional;
 import java.util.UUID;
 import org.slf4j.Logger;
@@ -76,8 +75,16 @@ public class DocumentServiceImpl implements DocumentService {
 
     @Override
     public DocumentDTO saveDocument(DocumentDTO documentDTO) {
+
+        String incDeadLine = documentDTO.getDeadline();
+        LocalDate deadline = null;
+
+        if (incDeadLine != null && !incDeadLine.isBlank()) {
+            deadline = LocalDate.parse(incDeadLine);
+        }
+
+
         MultipartFile incoming_doc = documentDTO.getFile();
-        String Title = documentDTO.getTitle();
         String Uuid = UUID.randomUUID().toString();
         String NameInFolder = Uuid + "." + getFileExtension(incoming_doc.getOriginalFilename());
         String filePath = props.getUploadPath() + File.separator + NameInFolder;
@@ -94,6 +101,7 @@ public class DocumentServiceImpl implements DocumentService {
         documentDTO.setFileUUID(Uuid);
         documentDTO.setDocumentStoredName(NameInFolder);
         Document file = DocumentMapper.toDoc(documentDTO);
+        file.setDeadline(deadline);
         docRepository.save(file);
         return DocumentMapper.toDocDTO(file);
 

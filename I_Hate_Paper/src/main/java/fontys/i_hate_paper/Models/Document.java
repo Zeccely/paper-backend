@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Getter
@@ -22,7 +22,7 @@ public class Document {
     //@Column (nullable = false)
     private Integer categoryID;
     private String description;
-    private LocalDateTime deadline;
+    private LocalDate deadline;
     private Date added_At = new Date();
     private boolean is_Handled = false;
     private String documentStoredName;

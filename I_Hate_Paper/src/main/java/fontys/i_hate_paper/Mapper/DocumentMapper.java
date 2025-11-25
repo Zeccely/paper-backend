@@ -22,6 +22,7 @@ public class DocumentMapper {
         document.setDescription(documentDTO.getDescription());
         document.setTitle(documentDTO.getTitle());
         document.setFileUUID(documentDTO.getFileUUID());
+        document.setDeadline(null);
         document.setDocumentStoredName(documentDTO.getDocumentStoredName());
 
         return document;

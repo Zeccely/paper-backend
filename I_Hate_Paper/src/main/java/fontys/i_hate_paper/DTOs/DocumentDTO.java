@@ -17,6 +17,7 @@ public class DocumentDTO {
     private String description;
     private Integer categoryID;
     private boolean is_Handled = false;
+    private String deadline;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private MultipartFile file;
     private String fileUUID;
