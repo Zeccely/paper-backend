@@ -30,9 +30,21 @@ services:
       paperusernamedb: "root"
       passdockerdb: "@Ilikecake12"
       SPRING_JPA_HIBERNATE_DDL_AUTO: create-drop
+      UPLOAD_PATH: "/app/dokks"
+    volumes:
+      - "C:/Users/jepis/Desktop/Dokks:/app/dokks"
     ports:
       - "8080:8080"
 
+  frontend:
+    build:
+      context: ../../paper-project-frontend/Paper-Project-Frontend
+      dockerfile: Dockerfile
+    container_name: paperfrontend
+    depends_on:
+      - backend
+    ports:
+      - "5173:5173"
 
 volumes:
   db-data:
