@@ -1,5 +1,6 @@
 
 services:
+
   db:
     image: mysql:8.0
     container_name: paperdatabasey
@@ -16,12 +17,18 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+  watchtower:
+    container_name: watchtower
+    image: containrrr/watchtower
+    environment:
+      - WATCHTOWER_CLEANUP=true
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command:
+      --interval 60 i_hate_paper-frontend i_hate_paper-backend
 
   backend:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: paperbackend
+    image: zeccely/i_hate_paper-backend:latest
     depends_on:
       db:
         condition: service_healthy
@@ -37,10 +44,7 @@ services:
       - "8080:8080"
 
   frontend:
-    build:
-      context: ../../paper-project-frontend/Paper-Project-Frontend
-      dockerfile: Dockerfile
-    container_name: paperfrontend
+    image: zeccely/i_hate_paper-frontend:latest
     depends_on:
       - backend
     ports:

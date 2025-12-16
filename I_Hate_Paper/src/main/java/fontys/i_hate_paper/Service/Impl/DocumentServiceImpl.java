@@ -2,7 +2,8 @@ package fontys.i_hate_paper.Service.Impl;
 
 import fontys.i_hate_paper.Configuration.DocumentStorageProperties;
 import fontys.i_hate_paper.DTOs.DocumentDTO;
-import fontys.i_hate_paper.Exception.DocumentServiceException;
+import fontys.i_hate_paper.Exception.StorageException;
+import fontys.i_hate_paper.Exception.ValidationException;
 import fontys.i_hate_paper.Models.Document;
 import fontys.i_hate_paper.Repository.DocumentRepository;
 import fontys.i_hate_paper.Service.DocumentService;
@@ -14,11 +15,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.nio.file.Paths;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import org.slf4j.Logger;
@@ -30,12 +33,14 @@ public class DocumentServiceImpl implements DocumentService {
 
     private final DocumentRepository docRepository;
     private final DocumentStorageProperties props;
-    private static final Logger logger = LoggerFactory.getLogger(DocumentServiceImpl.class); //this is not a constructor. this isnt a bean either
+    private final DocumentMapper documentMapper;
+    private static final Logger logger = LoggerFactory.getLogger(DocumentServiceImpl.class); //this is not a constructor. this isn't a bean either
 
 
-    public DocumentServiceImpl(DocumentRepository docRepository, DocumentStorageProperties props) {
+    public DocumentServiceImpl(DocumentRepository docRepository, DocumentStorageProperties props, DocumentMapper documentMapper) {
         this.docRepository = docRepository;
         this.props = props;
+        this.documentMapper = documentMapper;
     }
 
     @Override
@@ -44,31 +49,26 @@ public class DocumentServiceImpl implements DocumentService {
         Optional<Document> optionalDoc = docRepository.findByFileUUID(uuid);
 
         if (optionalDoc.isEmpty()) {
-            logger.error("Document with uuid " + uuid + " not found");
-            throw new DocumentServiceException("Document not found for uuid: " + uuid);
+            logger.error("Document with uuid {} not found", uuid);
+            throw new StorageException("DOCUMENT_NOT_FOUND","Document not found for uuid: " + uuid);
         }
 
         Document doc = optionalDoc.get();
 
-        String filePath = props.getUploadPath() + File.separator + doc.getDocumentStoredName();
+        String filePath = Paths.get(props.getUploadPath(), doc.getDocumentStoredName()).toString();
 
         try {
             File file = new File(filePath);
-
             if (!file.exists()) {
-                logger.error("Document not found for file: " + filePath);
-                throw new FileNotFoundException("File not found on disk: " + filePath);
+                logger.error("Document not found for file: {}", filePath);
+                throw new StorageException("DOCUMENT_NOT_FOUND","File not found on disk: " + filePath);
             }
-
+//checksum is good to check if the picture really is the same
             return new UrlResource(file.toURI());
         }
         catch (MalformedURLException e) {
-            logger.error("Document path not found: " + filePath);
-            throw new DocumentServiceException("Could not read file: " + filePath, e);
-        }
-        catch (FileNotFoundException e){
-            logger.error("Document file not found: " + filePath);
-            throw new DocumentServiceException("Could not read file: " + filePath, e);
+            logger.error("Document path not found: {}", filePath);
+            throw new StorageException("PATH_NOT_FOUND","Could not read file: " + filePath, e);
         }
     }
 
@@ -96,24 +96,25 @@ public class DocumentServiceImpl implements DocumentService {
 
         } catch (IOException e) {
             logger.error("Failed to save document with name {}", incoming_doc.getOriginalFilename(), e);
-            throw new DocumentServiceException("Failed to save document: " + incoming_doc.getOriginalFilename(), e);
+            throw new StorageException("DOCUMENT_SAVE_FAILED", "Failed to save document: " + incoming_doc.getOriginalFilename(), e);
         }
         documentDTO.setFileUUID(Uuid);
         documentDTO.setDocumentStoredName(NameInFolder);
-        Document file = DocumentMapper.toDoc(documentDTO);
+        Document file = documentMapper.toDoc(documentDTO);
         file.setDeadline(deadline);
         docRepository.save(file);
-        return DocumentMapper.toDocDTO(file);
+        return documentMapper.toDocDTO(file);
 
     }
 
     @Override
-    public DocumentDTO checkReturn(DocumentDTO documentDTO) {
-        Document file = DocumentMapper.toDoc(documentDTO);
-        if (docRepository.findById(file.getId()).isPresent()) {
-            return DocumentMapper.toDocDTO(file);
+    public List<DocumentDTO> getAllDocuments() {
+        List<DocumentDTO> documents = new ArrayList<>();
+        for (Document file : docRepository.findAll()) {
+            DocumentDTO dtoFiles = documentMapper.toDocDTO(file);
+            documents.add(dtoFiles);
         }
-        return null;
+        return documents;
     }
 
     String getFileExtension(String filename) {

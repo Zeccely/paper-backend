@@ -19,7 +19,7 @@ public class Document {
     private Integer id;
     private String title;
     private String fileUUID;
-    //@Column (nullable = false)
+    @Column (nullable = false)
     private Integer categoryID;
     private String description;
     private LocalDate deadline;

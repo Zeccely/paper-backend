@@ -9,6 +9,5 @@ import java.util.List;
 public interface DocumentService {
     Resource getDocumentByUUID(String UUID);
     DocumentDTO saveDocument(DocumentDTO document);
-    DocumentDTO checkReturn(DocumentDTO documentDTO); //this part should be in the logic of adding a file
-
+    List<DocumentDTO> getAllDocuments();
 }

@@ -14,7 +14,7 @@ import lombok.Setter;
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int ID;
+    private int id;
     @Column(unique = true)
-    private String Name;
+    private String name;
 }
