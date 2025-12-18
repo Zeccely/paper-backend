@@ -5,13 +5,18 @@ variables:
 stages:
   - build
   - test
+  - publish
 
 build:
   stage: build
   before_script:
-    - cd "$Env:CI_PROJECT_DIR\I_Hate_Paper"
+    - cd "$Env:CI_PROJECT_DIR\I_Hate_Paper" 
   script:
     - .\gradlew.bat assemble
+  artifacts:
+    paths:
+      - I_Hate_Paper/build/libs/*.jar
+
   
 test:
   stage: test
@@ -19,3 +24,15 @@ test:
     - cd "$Env:CI_PROJECT_DIR\I_Hate_Paper"
   script:
     - .\gradlew test jacocoTestReport sonar
+
+publish:
+  stage: publish
+  before_script:
+    - cd "$Env:CI_PROJECT_DIR\I_Hate_Paper" 
+  script:
+    - docker build -t zeccely/i_hate_paper-backend:latest . --no-cache
+    - docker login -u "$DOCKERHUB_USERNAME" -p "$DOCKERHUB_PATTOKEN"
+    - docker push zeccely/i_hate_paper-backend:latest
+  dependencies:
+    - build
+    
