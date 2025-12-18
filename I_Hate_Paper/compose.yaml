@@ -25,10 +25,11 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     command:
-      --interval 60 i_hate_paper-frontend i_hate_paper-backend
+      --interval 30 paperbackend paperfrontend
 
   backend:
     image: zeccely/i_hate_paper-backend:latest
+    container_name: paperbackend
     depends_on:
       db:
         condition: service_healthy
@@ -45,6 +46,7 @@ services:
 
   frontend:
     image: zeccely/i_hate_paper-frontend:latest
+    container_name: paperfrontend
     depends_on:
       - backend
     ports:

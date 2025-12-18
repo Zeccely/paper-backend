@@ -15,7 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class DocumentDTO {
     private String title;
     private String description;
-    private Integer categoryID;
+    private String categoryName;
     private boolean is_Handled = false;
     private String deadline;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)

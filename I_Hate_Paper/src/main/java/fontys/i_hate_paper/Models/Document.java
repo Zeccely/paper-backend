@@ -19,8 +19,9 @@ public class Document {
     private Integer id;
     private String title;
     private String fileUUID;
-    @Column (nullable = false)
-    private Integer categoryID;
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "category_id", nullable = false)
+    private Category category;
     private String description;
     private LocalDate deadline;
     private Date added_At = new Date();

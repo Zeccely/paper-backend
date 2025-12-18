@@ -1,18 +1,17 @@
 package fontys.i_hate_paper.Service.Impl;
 
-import fontys.i_hate_paper.Configuration.DocumentStorageProperties;
 import fontys.i_hate_paper.DTOs.DocumentDTO;
 import fontys.i_hate_paper.Exception.StorageException;
-import fontys.i_hate_paper.Exception.ValidationException;
 import fontys.i_hate_paper.Models.Document;
 import fontys.i_hate_paper.Repository.DocumentRepository;
+import fontys.i_hate_paper.Service.CategoryService;
 import fontys.i_hate_paper.Service.DocumentService;
 import fontys.i_hate_paper.Mapper.DocumentMapper;
+
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -27,20 +26,19 @@ import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 @Service
 public class DocumentServiceImpl implements DocumentService {
 
     private final DocumentRepository docRepository;
-    private final DocumentStorageProperties props;
     private final DocumentMapper documentMapper;
+    private final CategoryService categoryService;
     private static final Logger logger = LoggerFactory.getLogger(DocumentServiceImpl.class); //this is not a constructor. this isn't a bean either
 
 
-    public DocumentServiceImpl(DocumentRepository docRepository, DocumentStorageProperties props, DocumentMapper documentMapper) {
+    public DocumentServiceImpl(DocumentRepository docRepository, DocumentMapper documentMapper, CategoryService categoryService) {
         this.docRepository = docRepository;
-        this.props = props;
         this.documentMapper = documentMapper;
+        this.categoryService = categoryService;
     }
 
     @Override
@@ -55,7 +53,7 @@ public class DocumentServiceImpl implements DocumentService {
 
         Document doc = optionalDoc.get();
 
-        String filePath = Paths.get(props.getUploadPath(), doc.getDocumentStoredName()).toString();
+        String filePath = Paths.get(System.getenv("UPLOAD_PATH"), doc.getDocumentStoredName()).toString();
 
         try {
             File file = new File(filePath);
@@ -87,7 +85,7 @@ public class DocumentServiceImpl implements DocumentService {
         MultipartFile incoming_doc = documentDTO.getFile();
         String Uuid = UUID.randomUUID().toString();
         String NameInFolder = Uuid + "." + getFileExtension(incoming_doc.getOriginalFilename());
-        String filePath = props.getUploadPath() + File.separator + NameInFolder;
+        String filePath = System.getenv("UPLOAD_PATH") + File.separator + NameInFolder;
 
         try (FileOutputStream output = new FileOutputStream(filePath))
         {
@@ -101,6 +99,7 @@ public class DocumentServiceImpl implements DocumentService {
         documentDTO.setFileUUID(Uuid);
         documentDTO.setDocumentStoredName(NameInFolder);
         Document file = documentMapper.toDoc(documentDTO);
+        file.setCategory(categoryService.getOrCreateCategory(documentDTO.getCategoryName()));
         file.setDeadline(deadline);
         docRepository.save(file);
         return documentMapper.toDocDTO(file);

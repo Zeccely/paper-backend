@@ -26,23 +26,35 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public CategoryDTO createCategory(CategoryDTO categoryDTO) {
+        Category cat = getOrCreateCategory(categoryDTO.getName());
+        return categoryMapper.toDTO(cat);
 
-        String catName = categoryDTO.getName().trim();
+    }
 
-        if (catName.isBlank()) {
-            logger.warn("Category name is null or blank");
-            throw new ValidationException("CATEGORY_IS_NULL","Category name is null or blank");
+    //for document service
+    public Category getOrCreateCategory(String catName) {
+
+        if (catName == null){
+            logger.warn("Category name is null");
+            throw new ValidationException("CATEGORY_IS_NULL","Category name is null");
         }
 
-        Optional<Category> CatFind = categoryRepository.findByNameIgnoreCase(catName);
+        String catClean = catName.toLowerCase().trim();
 
-        if (CatFind.isEmpty()) {
-            Category newCategory = new Category();
-            newCategory.setName(catName);
-            Category savedCat = categoryRepository.save(newCategory);
-            return categoryMapper.toDTO(savedCat);
+        if(catClean.isBlank() ) {
+            logger.warn("Category name is blank");
+            throw new ValidationException("CATEGORY_IS_BLANK","Category name is blank");
         }
 
-        return categoryMapper.toDTO(CatFind.get());
+        Optional<Category> CatFind = categoryRepository.findByNameIgnoreCase(catClean);
+
+        if (CatFind.isPresent()) {
+            return CatFind.get(); //because its optional
+        }
+
+        Category newCategory = new Category();
+        newCategory.setName(catClean);
+        return categoryRepository.save(newCategory);
+
     }
 }

@@ -13,11 +13,13 @@ public class DocumentMapper {
         documentDTO.setTitle(document.getTitle());
         documentDTO.setFileUUID(document.getFileUUID());
         documentDTO.setDeadline(String.valueOf(document.getDeadline()));
+        documentDTO.setCategoryName(document.getCategory().getName());
 
         return documentDTO;
 
     }
     public Document toDoc(DocumentDTO documentDTO) {
+
         Document document = new Document();
         document.setDescription(documentDTO.getDescription());
         document.setTitle(documentDTO.getTitle());
@@ -26,5 +28,6 @@ public class DocumentMapper {
         document.setDocumentStoredName(documentDTO.getDocumentStoredName());
 
         return document;
+
     }
 }

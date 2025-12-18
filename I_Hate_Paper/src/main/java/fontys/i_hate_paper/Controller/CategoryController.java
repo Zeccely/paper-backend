@@ -4,11 +4,10 @@ import fontys.i_hate_paper.DTOs.CategoryDTO;
 import fontys.i_hate_paper.Service.CategoryService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/category")
+@RequestMapping("/api/categories")
 @CrossOrigin(origins = "*")
 public class CategoryController {
     private final CategoryService categoryService;
@@ -19,7 +18,6 @@ public class CategoryController {
     @PostMapping
     public ResponseEntity<CategoryDTO> addCategory(@RequestBody CategoryDTO categoryDTO) {
         return ResponseEntity.ok(categoryService.createCategory(categoryDTO));
-
     }
 
     @GetMapping
