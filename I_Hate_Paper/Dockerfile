@@ -2,7 +2,7 @@ FROM eclipse-temurin:21-jre
 WORKDIR /app
 
 # Copy the jar from the build stage
-COPY /app/build/libs/*.jar app.jar
+COPY /build/libs/*.jar app.jar
 
 # Run the application
 CMD ["java", "-jar", "app.jar"]
