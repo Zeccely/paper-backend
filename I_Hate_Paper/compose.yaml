@@ -21,7 +21,7 @@ services:
     container_name: watchtower
     image: containrrr/watchtower
     environment:
-      - WATCHTOWER_CLEANUP=true
+      - WATCHTOWER_CLEANUP=false
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     command:

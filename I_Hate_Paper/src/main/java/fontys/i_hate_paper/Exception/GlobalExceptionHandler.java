@@ -40,3 +40,5 @@ public class GlobalExceptionHandler {
     }
 }
 
+//DRY is violated
+

@@ -25,7 +25,7 @@ public class Document {
     private String description;
     private LocalDate deadline;
     private Date added_At = new Date();
-    private boolean is_Handled = false;
+    private Boolean is_Handled = false;
     private String documentStoredName;
 
 

@@ -1,5 +1,6 @@
 package fontys.i_hate_paper.Models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,14 +15,15 @@ import lombok.Setter;
 public class User {
     @Id //this is already a primary key
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int ID;
+    private Integer id;
 
     @Column(unique = true)
-    private String Username;
+    private String username;
 
     @Column
-    private String Password;
+    private String passwordHash;
 
     @Column(unique = true)
-    private String Email;
+    @JsonIgnore
+    private String email;
 }
