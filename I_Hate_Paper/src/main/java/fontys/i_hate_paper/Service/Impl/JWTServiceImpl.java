@@ -1,17 +1,16 @@
 package fontys.i_hate_paper.Service.Impl;
 
 import fontys.i_hate_paper.Configuration.JWTConfigurationProperties;
+import fontys.i_hate_paper.Exception.ValidationException;
 import fontys.i_hate_paper.Models.User;
 import fontys.i_hate_paper.Service.JWTService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
-import java.security.Key;
 import java.util.Date;
 import java.util.UUID;
 
@@ -35,7 +34,7 @@ public class JWTServiceImpl implements JWTService {
         Date now = new Date();
         Date exp = new Date(now.getTime() + accessValiditySeconds * 1000L);
 
-        return Jwts.builder()                       //Welcome to the builder pattern. it seems that this way is more readable, prevents confusion of a huge constructor and also errors
+        return Jwts.builder()  //Welcome to the builder pattern. it seems that this way is more readable, prevents confusion of a huge constructor and also errors
                 .subject(String.valueOf(user.getId()))
                 .claim("username", user.getUsername())
                 .issuedAt(now)
@@ -65,5 +64,26 @@ public class JWTServiceImpl implements JWTService {
                 .build()
                 .parseSignedClaims(token)
                 .getPayload();
+    }
+
+    @Override
+    public Integer getUserIdRefreshToken(String token) {
+        if (token == null || token.isBlank()) {
+            throw new ValidationException("REFRESH_TOKEN_MISSING", "Refresh token is missing");
+        }
+
+        Claims claims = validateToken(token);
+
+        String userIdStr = claims.getSubject();
+        Integer userId; //I am also primitive.
+
+        try {
+            userId = Integer.parseInt(userIdStr);
+        } catch (NumberFormatException ex) {
+            throw new ValidationException("INVALID_TOKEN", "Invalid user id in token");
+        }
+
+
+        return userId;
     }
 }

@@ -1,6 +1,7 @@
 package fontys.i_hate_paper.Service.Impl;
 
 import fontys.i_hate_paper.DTOs.UserDTO;
+import fontys.i_hate_paper.Exception.NotFoundException;
 import fontys.i_hate_paper.Exception.ValidationException;
 import fontys.i_hate_paper.Models.AuthenticationResult;
 import fontys.i_hate_paper.Models.User;
@@ -9,6 +10,8 @@ import fontys.i_hate_paper.Service.AuthenticationService;
 import fontys.i_hate_paper.Service.JWTService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class AuthenticationServiceImpl implements AuthenticationService {
@@ -60,5 +63,19 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
         return new AuthenticationResult(user, accessToken, refreshToken);
 
+    }
+
+    @Override
+    public String refreshToken(String refreshToken) {
+        Integer userId = jwtService.getUserIdRefreshToken(refreshToken);
+
+        Optional<User> optionalUser = userRepository.findById(userId);
+        if (optionalUser.isEmpty()) {
+            throw new NotFoundException("USER_NOT_FOUND", "User was not found");
+        }
+
+        User user = optionalUser.get();
+
+        return jwtService.createAccessToken(user);
     }
 }
