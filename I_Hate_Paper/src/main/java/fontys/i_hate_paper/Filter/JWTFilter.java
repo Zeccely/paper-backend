@@ -1,9 +1,6 @@
 package fontys.i_hate_paper.Filter;
 
-import fontys.i_hate_paper.Exception.NotFoundException;
-import fontys.i_hate_paper.Exception.ValidationException;
-import fontys.i_hate_paper.Models.User;
-import fontys.i_hate_paper.Repository.UserRepository;
+import fontys.i_hate_paper.Models.AuthPrincipal;
 import fontys.i_hate_paper.Service.JWTService;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.FilterChain;
@@ -17,18 +14,14 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.Optional;
 
 public class JWTFilter extends OncePerRequestFilter {
 
     private final JWTService jwtService;
-    private final UserRepository userRepository;
 
-    public JWTFilter(JWTService jwtService, UserRepository userRepository) {
+    public JWTFilter(JWTService jwtService) {
         this.jwtService = jwtService;
-        this.userRepository = userRepository;
     }
 
     @Override
@@ -51,24 +44,24 @@ public class JWTFilter extends OncePerRequestFilter {
             String userIdStr = claims.getSubject();
             Integer userId = Integer.parseInt(userIdStr);
 
-            Optional<User> optionalUser = userRepository.findById(userId);
+            String username = claims.get("username", String.class);
 
-            if (optionalUser.isEmpty()) {
-                throw new NotFoundException("USER_NOT_FOUND", "User was not found");
-            }
-
-            User user = optionalUser.get();
+            AuthPrincipal principal = new AuthPrincipal(userId, username);
 
             UsernamePasswordAuthenticationToken auth =
-                    new UsernamePasswordAuthenticationToken(user, null, Collections.emptyList());
+                    new UsernamePasswordAuthenticationToken(principal, null, Collections.emptyList());
 
             auth.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
             SecurityContextHolder.getContext().setAuthentication(auth);
 
+            filterChain.doFilter(request, response);
+
+
+            //sqp_c2b033661ee052d9f11e0569d38d5f969fd8fdf5
+
         } catch (Exception ex) {
 
             SecurityContextHolder.clearContext();
-            throw new ValidationException("TOKEN_IS_INVALID", "This token is invalid");
 
         }
 
@@ -79,7 +72,7 @@ public class JWTFilter extends OncePerRequestFilter {
         Cookie[] cookies = request.getCookies();
         if (cookies == null)
         {
-            throw new NotFoundException("COOKIE_NOT_FOUND", "Cookie not found");
+            return null;
         }
 
         for (Cookie cookie : cookies) {

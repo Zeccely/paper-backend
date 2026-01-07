@@ -12,8 +12,9 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/api/files")
-@CrossOrigin(origins = "*")
+@RequestMapping("/api/documents")
+@CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
+
 public class DocumentUploadDownloadController {
 
     private final DocumentService documentService;
@@ -29,13 +30,13 @@ public class DocumentUploadDownloadController {
         return ResponseEntity.ok(done);
     }
 
-    @GetMapping("/documents/{uuid}")
+    @GetMapping("/{uuid}")
     public ResponseEntity<Resource> downloadDocument(@PathVariable String uuid) {
         Resource DTO = documentService.getDocumentByUUID(uuid);
         return ResponseEntity.ok(DTO);
     }
 
-    @GetMapping("/documents")
+    @GetMapping("/")
     public ResponseEntity<List<DocumentDTO>> getAllDocuments() {
         List<DocumentDTO> documents = documentService.getAllDocuments();
         return ResponseEntity.ok(documents);

@@ -8,6 +8,7 @@ import fontys.i_hate_paper.Service.AuthenticationService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseCookie;
@@ -16,7 +17,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/auth")
-@CrossOrigin(origins = "http://localhost:8080", allowCredentials = "true")
 
 
 public class AuthenticationController {
@@ -31,7 +31,7 @@ public class AuthenticationController {
         return ResponseEntity.ok("test");
     }
 
-    @PostMapping("/createuser")
+    @PostMapping("/createuser") //conventions pls
     public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO) {
         authenticationService.createUser(userDTO);
         return ResponseEntity.ok().body(userDTO);
@@ -95,4 +95,11 @@ public class AuthenticationController {
         return null;
     }
 
+    @GetMapping("/me") //conventions pls
+    public ResponseEntity<UserDTO> me(Authentication authentication) {
+        return ResponseEntity.ok(authenticationService.AuthUser(authentication));
+    }
 }
+
+
+

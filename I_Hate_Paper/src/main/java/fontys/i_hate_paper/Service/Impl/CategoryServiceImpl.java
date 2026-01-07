@@ -32,7 +32,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     //for document service
-    public Category getOrCreateCategory(String catName) {
+    public Category getOrCreateCategory(String catName) { //UNITTEST
 
         if (catName == null){
             logger.warn("Category name is null");
@@ -57,4 +57,18 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryRepository.save(newCategory);
 
     }
+
+    public Category resolveCategory(Integer categoryId, String categoryName) {
+
+        if (categoryId != null) {
+            return categoryRepository.findById(categoryId)
+                    .orElseThrow(() ->
+                            new ValidationException("CATEGORY_NOT_FOUND", "Category not found")
+                    );
+        }
+
+        return getOrCreateCategory(categoryName);
+    }
+
+
 }

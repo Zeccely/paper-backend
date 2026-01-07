@@ -7,11 +7,11 @@ plugins {
 }
 
 sonar {
+
     properties {
-        property "sonar.projectName", "Ihatepaperbackend"
-        property "sonar.projectKey", "Ihatepaperbackend"
-        property "sonar.host.url", "http://localhost:9000/"
-        property "sonar.token", "sqp_7f7e29dbdd4e43a31e3c3a2d4cdb0d16c4334a78"
+        property "sonar.projectKey", "I-Hate-Paper"
+        property "sonar.projectName", "I Hate Paper"
+        property "sonar.qualitygate.wait", true
     }
 }
 
@@ -51,6 +51,7 @@ dependencies {
     runtimeOnly("io.jsonwebtoken:jjwt-impl:0.12.3")
     runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.12.3")
 }
+
 
 tasks.named('test') {
 	useJUnitPlatform()

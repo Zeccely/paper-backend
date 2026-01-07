@@ -16,6 +16,7 @@ public class DocumentDTO {
     private String title;
     private String description;
     private String categoryName;
+    private Integer categoryId;
     private Boolean is_Handled = false;
     private String deadline;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)

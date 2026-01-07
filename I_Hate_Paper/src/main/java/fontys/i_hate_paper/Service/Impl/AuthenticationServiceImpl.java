@@ -8,6 +8,7 @@ import fontys.i_hate_paper.Models.User;
 import fontys.i_hate_paper.Repository.UserRepository;
 import fontys.i_hate_paper.Service.AuthenticationService;
 import fontys.i_hate_paper.Service.JWTService;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -78,4 +79,21 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
         return jwtService.createAccessToken(user);
     }
+    public UserDTO AuthUser(Authentication authentication) {
+        if (authentication == null || !authentication.isAuthenticated()) {
+            throw new ValidationException("NOT_AUTHENTICATED", "Not authenticated");
+        }
+
+        Object principal = authentication.getPrincipal();
+
+        if (!(principal instanceof User user)) {
+            throw new ValidationException("INVALID_PRINCIPAL", "Invalid principal");
+        }
+
+        UserDTO dto = new UserDTO();
+        dto.setUsername(user.getUsername());
+        dto.setEmail(user.getEmail());
+        return dto;
+    }
+
 }
