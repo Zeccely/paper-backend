@@ -1,10 +1,15 @@
+image: gradle:8.10.0-jdk17-jammy
+
 variables:
   GRADLE_OPTS: "-Dorg.gradle.daemon=false"
+  SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"  # Defines the location of the analysis task cache
+  GIT_DEPTH: "0"  # Tells git to fetch all the branches of the project, required by the analysis task
 
 
 stages:
   - build
   - test
+  - build-sonar
   - publish
 
 build:
@@ -16,14 +21,33 @@ build:
   artifacts:
     paths:
       - I_Hate_Paper/build/libs/*.jar
-
   
 test:
   stage: test
   before_script:
     - cd "$Env:CI_PROJECT_DIR\I_Hate_Paper"
+    - .\gradlew test jacocoTestReport
   script:
     - .\gradlew test
+
+build-sonar:
+  stage: build-sonar
+  
+  
+  cache:
+    policy: pull-push
+    key: "sonar-cache-$CI_COMMIT_REF_SLUG"
+    paths:
+      - "${SONAR_USER_HOME}/cache"
+      - sonar-scanner/
+      
+  script: .\gradlew sonar
+  allow_failure: true
+  rules:
+    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
+    - if: $CI_COMMIT_BRANCH == 'master'
+    - if: $CI_COMMIT_BRANCH == 'main'
+    - if: $CI_COMMIT_BRANCH == 'develop'
 
 publish:
   stage: publish
