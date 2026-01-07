@@ -32,8 +32,8 @@ test:
 
 build-sonar:
   stage: build-sonar
-  
-  
+    before_script:
+    - cd "$Env:CI_PROJECT_DIR\I_Hate_Paper"
   cache:
     policy: pull-push
     key: "sonar-cache-$CI_COMMIT_REF_SLUG"
