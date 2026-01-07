@@ -31,6 +31,11 @@ test:
 
 build-sonar:
   stage: build-sonar
+    cache:
+    policy: pull-push
+    key: "sonar-cache-$CI_COMMIT_REF_SLUG"
+    paths:
+    - "C:\\sonar-cache\\cache"
   before_script:
     - cd "$Env:CI_PROJECT_DIR\I_Hate_Paper"
   script:
@@ -41,6 +46,8 @@ build-sonar:
     - if: $CI_COMMIT_BRANCH == "master"
     - if: $CI_COMMIT_BRANCH == "main"
     - if: $CI_COMMIT_BRANCH == "develop"
+
+    
 
 publish:
   stage: publish
