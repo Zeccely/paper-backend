@@ -1,7 +1,6 @@
 package fontys.i_hate_paper.Controller;
 
 
-import fontys.i_hate_paper.DTOs.CategoryDTO;
 import fontys.i_hate_paper.DTOs.UserDTO;
 import fontys.i_hate_paper.Models.AuthenticationResult;
 import fontys.i_hate_paper.Service.AuthenticationService;
