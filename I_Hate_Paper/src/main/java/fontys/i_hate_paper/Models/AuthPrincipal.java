@@ -3,6 +3,7 @@ package fontys.i_hate_paper.Models;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.security.core.userdetails.UserDetails;
 
 @Getter
 @Setter

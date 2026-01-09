@@ -11,13 +11,10 @@ sonar {
         property "sonar.projectKey", "I-Hate-Paper"
         property "sonar.projectName", "I Hate Paper"
         property "sonar.qualitygate.wait", true
-        property "sonar.host.url", System.getenv("SONAR_HOST_URL")
-        property "sonar.token", System.getenv("SONAR_TOKEN")
+        property "sonar.coverage.jacoco.xmlReportPaths", "build/reports/jacoco/test/jacocoTestReport.xml"
     }
+
 }
-
-
-
 group = 'fontys'
 version = '0.0.1-SNAPSHOT'
 description = 'I_Hate_Paper'

@@ -15,11 +15,11 @@ import java.util.List;
 @RequestMapping("/api/documents")
 @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
 
-public class DocumentUploadDownloadController {
+public class DocumentStreamController {
 
     private final DocumentService documentService;
 
-    public DocumentUploadDownloadController(DocumentService documentService) {
+    public DocumentStreamController(DocumentService documentService) {
         this.documentService = documentService;
     }
 

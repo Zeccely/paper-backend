@@ -2,6 +2,7 @@ package fontys.i_hate_paper.Filter;
 
 import fontys.i_hate_paper.Models.AuthPrincipal;
 import fontys.i_hate_paper.Service.JWTService;
+import fontys.i_hate_paper.Util.CookieUtils;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -15,6 +16,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 import java.util.Collections;
+
 
 public class JWTFilter extends OncePerRequestFilter {
 
@@ -32,7 +34,7 @@ public class JWTFilter extends OncePerRequestFilter {
             return;
         }
 
-        String token = getCookieValue(request);
+        String token = CookieUtils.getCookieValue(request, "ACCESS");
         if (token == null || token.isBlank()) {
             filterChain.doFilter(request, response);
             return;
@@ -54,10 +56,6 @@ public class JWTFilter extends OncePerRequestFilter {
             auth.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
             SecurityContextHolder.getContext().setAuthentication(auth);
 
-            filterChain.doFilter(request, response);
-
-
-            //
 
         } catch (Exception ex) {
 
@@ -67,22 +65,4 @@ public class JWTFilter extends OncePerRequestFilter {
 
         filterChain.doFilter(request, response);
     }
-
-    private String getCookieValue(HttpServletRequest request) {
-        Cookie[] cookies = request.getCookies();
-        if (cookies == null)
-        {
-            return null;
-        }
-
-        for (Cookie cookie : cookies) {
-            if ("ACCESS".equals(cookie.getName())) {
-                return cookie.getValue();
-            }
-        }
-
-        return null;
-    }
 }
-
-

@@ -7,17 +7,14 @@ import fontys.i_hate_paper.Repository.CategoryRepository;
 import fontys.i_hate_paper.Service.Impl.CategoryServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import java.util.Optional;
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-
 public class CategoryServiceTests {
-    //mocking things
+
     private CategoryRepository categoryRepository;
-    private CategoryMapper categoryMapper;
+    private CategoryMapper categoryMapper; //I didn't really test this yet
     private CategoryServiceImpl categoryService;
 
     @BeforeEach
@@ -29,30 +26,27 @@ public class CategoryServiceTests {
 
     @Test
     void Should_Get_Category_From_String() {
+
         //Arrange
         String categoryName = "CategoryThatExists    ";
         String cleanName = "categorythatexists";
         Category existing = new Category();
         existing.setName(cleanName);
-
         when(categoryRepository.findByNameIgnoreCase(cleanName)).thenReturn(Optional.of(existing));
-
 
         //Act
         Category testing = categoryService.getOrCreateCategory(categoryName);
-
 
         //Assert
         assertNotNull(testing);
         assertEquals(cleanName, testing.getName());
         verify(categoryRepository, times(1)).findByNameIgnoreCase(cleanName);
         verify(categoryRepository, times(0)).save(any(Category.class));
-
-
     }
 
     @Test
     void Should_Create_Category_From_String_When_Category_Does_Not_Exist() {
+
         //Arrange
         String categoryName = "CategoryThatDoesNotExist     ";
         String cleanName = "categorythatdoesnotexist";
@@ -69,11 +63,11 @@ public class CategoryServiceTests {
         assertEquals(cleanName, testing.getName());
         verify(categoryRepository, times(1)).findByNameIgnoreCase(cleanName);
         verify(categoryRepository).save(any(Category.class));
-
     }
 
     @Test
     void Should_Throw_Validation_Exception_When_Category_Is_Blank() {
+
         //Arrange
         String categoryName = "    ";
 
@@ -87,6 +81,7 @@ public class CategoryServiceTests {
 
     @Test
     void Should_Throw_Validation_Exception_When_Category_Is_NULL() {
+
         //Arrange
         String categoryName = null;
 
@@ -94,8 +89,12 @@ public class CategoryServiceTests {
         ValidationException testing = assertThrows(ValidationException.class, () -> {
             categoryService.getOrCreateCategory(categoryName);
         });
+
         //Assert
         assertEquals("Category name is null", testing.getMessage());
     }
+
+    @Test
+    void Should_Throw_Validation_Exception_When_Category_Is_Empty() {}
 
 }
