@@ -18,12 +18,12 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO) {
-        System.out.println("HELLOOOOOO USEEERRR?????");
+        System.out.println("Ouch! said createuser");
         authenticationService.createUser(userDTO);
         return ResponseEntity.ok().body(userDTO);
     }
 
-    @GetMapping("/me") //conventions pls
+    @GetMapping("/me")
     public ResponseEntity<UserDTO> me(Authentication authentication) {
         return ResponseEntity.ok(authenticationService.AuthUser(authentication));
     }

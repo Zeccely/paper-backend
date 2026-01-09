@@ -8,16 +8,11 @@ import fontys.i_hate_paper.Service.CategoryService;
 import fontys.i_hate_paper.Service.DocumentService;
 import fontys.i_hate_paper.Mapper.DocumentMapper;
 
+import fontys.i_hate_paper.Service.StorageService;
 import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,13 +27,15 @@ public class DocumentServiceImpl implements DocumentService {
     private final DocumentRepository docRepository;
     private final DocumentMapper documentMapper;
     private final CategoryService categoryService;
+    private final StorageService storageService;
     private static final Logger logger = LoggerFactory.getLogger(DocumentServiceImpl.class); //this is not a constructor. this isn't a bean either
 
 
-    public DocumentServiceImpl(DocumentRepository docRepository, DocumentMapper documentMapper, CategoryService categoryService) {
+    public DocumentServiceImpl(DocumentRepository docRepository, DocumentMapper documentMapper, CategoryService categoryService, StorageService storageService) {
         this.docRepository = docRepository;
         this.documentMapper = documentMapper;
         this.categoryService = categoryService;
+        this.storageService = new StorageServiceImpl();
     }
 
     @Override
@@ -53,21 +50,7 @@ public class DocumentServiceImpl implements DocumentService {
 
         Document doc = optionalDoc.get();
 
-        String filePath = Paths.get(System.getenv("UPLOAD_PATH"), doc.getDocumentStoredName()).toString();
-
-        try {
-            File file = new File(filePath);
-            if (!file.exists()) {
-                logger.error("Document not found for file: {}", filePath);
-                throw new StorageException("DOCUMENT_NOT_FOUND","File not found on disk: " + filePath);
-            }
-//checksum is good to check if the picture really is the same
-            return new UrlResource(file.toURI());
-        }
-        catch (MalformedURLException e) {
-            logger.error("Document path not found: {}", filePath);
-            throw new StorageException("PATH_NOT_FOUND","Could not read file: " + filePath, e);
-        }
+        return storageService.loadAsResource(doc.getDocumentStoredName());
     }
 
 
@@ -84,17 +67,9 @@ public class DocumentServiceImpl implements DocumentService {
         MultipartFile incoming_doc = documentDTO.getFile();
         String Uuid = UUID.randomUUID().toString();
         String NameInFolder = Uuid + "." + getFileExtension(incoming_doc.getOriginalFilename());
-        String filePath = System.getenv("UPLOAD_PATH") + File.separator + NameInFolder;
 
-        try (FileOutputStream output = new FileOutputStream(filePath))
-        {
-            output.write(incoming_doc.getBytes());
-            logger.info("Saving document with name {}", incoming_doc.getOriginalFilename());
+        storageService.storeDocument(incoming_doc, NameInFolder);
 
-        } catch (IOException e) {
-            logger.error("Failed to save document with name {}", incoming_doc.getOriginalFilename(), e);
-            throw new StorageException("DOCUMENT_SAVE_FAILED", "Failed to save document: " + incoming_doc.getOriginalFilename(), e);
-        }
         documentDTO.setFileUUID(Uuid);
         documentDTO.setDocumentStoredName(NameInFolder);
         Document file = documentMapper.toDoc(documentDTO);

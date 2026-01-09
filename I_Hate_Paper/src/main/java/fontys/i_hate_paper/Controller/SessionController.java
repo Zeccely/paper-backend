@@ -24,8 +24,8 @@ public class SessionController {
 
     @PostMapping
     public ResponseEntity<UserDTO> createSession(@RequestBody UserDTO userDTO) {
+        System.out.println("Why are you hitting me? said Login");
         AuthenticationResult result = authenticationService.loginWithToken(userDTO.getUsername(), userDTO.getPassword());
-
         ResponseCookie accessCookie = CookieUtils.buildAccessCookie(result.accessToken());
         ResponseCookie refreshCookie = CookieUtils.buildRefreshCookie(result.refreshToken());
 

@@ -64,5 +64,6 @@ public class CookieUtils {
                 .maxAge(0)
                 .build();
     }
-
 }
+
+//I ended up making the cookie "helper"
