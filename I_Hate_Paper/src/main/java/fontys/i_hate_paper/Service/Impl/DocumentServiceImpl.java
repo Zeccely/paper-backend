@@ -35,7 +35,7 @@ public class DocumentServiceImpl implements DocumentService {
         this.docRepository = docRepository;
         this.documentMapper = documentMapper;
         this.categoryService = categoryService;
-        this.storageService = new StorageServiceImpl();
+        this.storageService = storageService;
     }
 
     @Override
