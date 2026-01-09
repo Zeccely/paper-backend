@@ -1,7 +1,8 @@
 
 variables:
   GRADLE_OPTS: "-Dorg.gradle.daemon=false"
-  SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"  # Defines the location of the analysis task cache
+  SONAR_USER_HOME: "C:\\sonar-cache"
+  # Defines the location of the analysis task cache
   GIT_DEPTH: "0"  # Tells git to fetch all the branches of the project, required by the analysis task
 
 
@@ -31,16 +32,22 @@ test:
 
 build-sonar:
   stage: build-sonar
+  cache:
+    policy: pull-push
+    key: "sonar-cache-$CI_COMMIT_REF_SLUG"
+    paths:
+      - "C:\\sonar-cache\\cache" 
   before_script:
     - cd "$Env:CI_PROJECT_DIR\I_Hate_Paper"
   script:
-    - .\gradlew.bat sonar
+    - .\gradlew.bat jacocoTestReport sonar
   allow_failure: true
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
     - if: $CI_COMMIT_BRANCH == "master"
     - if: $CI_COMMIT_BRANCH == "main"
     - if: $CI_COMMIT_BRANCH == "develop"
+
 
 publish:
   stage: publish
