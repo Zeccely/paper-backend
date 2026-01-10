@@ -23,7 +23,7 @@ public class DocumentStreamController {
         this.documentService = documentService;
     }
 
-    @PostMapping(path = "/upload", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    @PostMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<DocumentDTO> getDocument(@ModelAttribute DocumentDTO dto) {
         DocumentDTO done = documentService.saveDocument(dto);
         //pass id here from the previous api call
@@ -36,10 +36,9 @@ public class DocumentStreamController {
         return ResponseEntity.ok(DTO);
     }
 
-    @GetMapping("/")
+    @GetMapping
     public ResponseEntity<List<DocumentDTO>> getAllDocuments() {
         List<DocumentDTO> documents = documentService.getAllDocuments();
         return ResponseEntity.ok(documents);
     }
-
 }

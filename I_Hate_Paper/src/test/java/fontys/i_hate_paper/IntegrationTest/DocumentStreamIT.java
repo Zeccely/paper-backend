@@ -11,9 +11,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.test.context.TestPropertySource;
 
+import java.util.List;
+
 @TestPropertySource("classpath:application-test.properties")
 @SpringBootTest (webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class DocumentStreamIntegrationTest {
+public class DocumentStreamIT {
     //BDD Behaviour driven development. Given this occurence if I click this (when) I will get that (then)
 
     @LocalServerPort
@@ -29,9 +31,8 @@ public class DocumentStreamIntegrationTest {
     @Test
     public void Should_Send_Document_And_Reply_With_Document_Data(){
 
-        given().
-                contentType("multipart/form-data")
-                .multiPart("file", "test.pdf", pdfBytes, "application/pdf")
+        given()
+                .multiPart("file", "test.pdf", pdfBytes, "multipart/form-data")
                 .multiPart("title", "Test doc")
                 .multiPart("description", "hello")
                 .multiPart("categoryName", "Bills")
@@ -51,16 +52,16 @@ public class DocumentStreamIntegrationTest {
                 .get("/api/documents/")
                 .then()
                 .statusCode(200)
-                .body("$", is(not(empty())));
+                .body("$", is(not(empty())))
+                .body("$", isA(List.class));
     }
 
     @Test
     public void Should_Retrieve_Specific_Document_From_UUID(){
 
         String uuid =
-        given().
-                contentType("multipart/form-data")
-                .multiPart("file", "test.pdf", pdfBytes, "application/pdf")
+        given()
+                .multiPart("file", "test.pdf", pdfBytes, "multipart/form-data")
                 .multiPart("title", "Test doc")
                 .multiPart("description", "hello")
                 .multiPart("categoryName", "Bills")

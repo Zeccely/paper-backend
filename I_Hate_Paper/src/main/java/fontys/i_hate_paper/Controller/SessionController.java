@@ -26,6 +26,7 @@ public class SessionController {
     public ResponseEntity<UserDTO> createSession(@RequestBody UserDTO userDTO) {
         System.out.println("Why are you hitting me? said Login");
         AuthenticationResult result = authenticationService.loginWithToken(userDTO.getUsername(), userDTO.getPassword());
+
         ResponseCookie accessCookie = CookieUtils.buildAccessCookie(result.accessToken());
         ResponseCookie refreshCookie = CookieUtils.buildRefreshCookie(result.refreshToken());
 
@@ -38,6 +39,7 @@ public class SessionController {
                 .header(HttpHeaders.SET_COOKIE, refreshCookie.toString())
                 .body(out);
     }
+
     @PostMapping("/refresh")
     public ResponseEntity<Void> refreshSession(HttpServletRequest request) {
 
@@ -64,8 +66,4 @@ public class SessionController {
                 .header(HttpHeaders.SET_COOKIE, clearRefresh.toString())
                 .build();
     }
-
 }
-
-
-

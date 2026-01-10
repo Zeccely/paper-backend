@@ -9,7 +9,8 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
-
+//due to lack of admin features, endpoints on Get for get users and getusers by id won't exist...
+//This is vulnerable to broken access control.
     private final AuthenticationService authenticationService;
 
     public UserController(AuthenticationService authenticationService) {

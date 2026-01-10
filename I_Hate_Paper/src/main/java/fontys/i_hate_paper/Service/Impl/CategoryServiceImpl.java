@@ -1,5 +1,6 @@
 package fontys.i_hate_paper.Service.Impl;
 import fontys.i_hate_paper.DTOs.CategoryDTO;
+import fontys.i_hate_paper.DTOs.DocumentDTO;
 import fontys.i_hate_paper.Exception.ValidationException;
 import fontys.i_hate_paper.Mapper.CategoryMapper;
 import fontys.i_hate_paper.Models.Category;
@@ -9,6 +10,8 @@ import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -27,7 +30,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public CategoryDTO createCategory(CategoryDTO categoryDTO) {
         Category cat = getOrCreateCategory(categoryDTO.getName());
-        return categoryMapper.toDTO(cat);
+        return categoryMapper.toCatDTO(cat);
 
     }
 
@@ -55,6 +58,17 @@ public class CategoryServiceImpl implements CategoryService {
         Category newCategory = new Category();
         newCategory.setName(catClean);
         return categoryRepository.save(newCategory);
+
+    }
+
+    @Override
+    public List<CategoryDTO> getCategories() {
+        List<CategoryDTO> categories = new ArrayList<>();
+        for (Category category : categoryRepository.findAll()) {
+            CategoryDTO dto = categoryMapper.toCatDTO(category);
+            categories.add(dto);
+        }
+        return categories;
 
     }
 
