@@ -1,5 +1,6 @@
 package fontys.i_hate_paper.Service.Impl;
 
+import fontys.i_hate_paper.Configuration.DocumentStorageProperties;
 import fontys.i_hate_paper.Exception.StorageException;
 import fontys.i_hate_paper.Service.StorageService;
 import org.slf4j.Logger;
@@ -19,14 +20,16 @@ import java.nio.file.Paths;
 public class StorageServiceImpl implements StorageService {
 
     private static final Logger logger = LoggerFactory.getLogger(StorageServiceImpl.class); //this is not a constructor. this isn't a bean either
+    private final DocumentStorageProperties docProps;
 
+    public StorageServiceImpl(DocumentStorageProperties docProps) {
+        this.docProps = docProps;
+    }
 
     @Override
     public void storeDocument(MultipartFile incoming_doc, String fileName) {
 
-        String filePath = System.getenv("UPLOAD_PATH") + File.separator + fileName;
-
-        try (FileOutputStream output = new FileOutputStream(filePath))
+        try (FileOutputStream output = new FileOutputStream(docProps.getUploadPath()+File.separator+fileName))
         {
             output.write(incoming_doc.getBytes());
             logger.info("Saving document with name {}", incoming_doc.getOriginalFilename());
@@ -40,20 +43,18 @@ public class StorageServiceImpl implements StorageService {
     @Override
     public Resource loadAsResource(String storedName) {
 
-        String filePath = Paths.get(System.getenv("UPLOAD_PATH"), storedName).toString();
-
         try {
-            File file = new File(filePath);
+            File file = new File(Paths.get(docProps.getUploadPath(),storedName).toString());
             if (!file.exists()) {
-                logger.error("Document not found for file: {}", filePath);
-                throw new StorageException("DOCUMENT_NOT_FOUND","File not found on disk: " + filePath);
+                logger.error("Document not found for file: {}", docProps.getUploadPath()+storedName);
+                throw new StorageException("DOCUMENT_NOT_FOUND", "File not found on disk: " + docProps.getUploadPath()+storedName);
             }
             //checksum is good to check if the picture really is the same
             return new UrlResource(file.toURI());
         }
         catch (MalformedURLException e) {
-            logger.error("Document path not found: {}", filePath);
-            throw new StorageException("PATH_NOT_FOUND","Could not read file: " + filePath, e);
+            logger.error("Document path not found: {}", docProps.getUploadPath()+storedName);
+            throw new StorageException("PATH_NOT_FOUND", "Could not read file: " + docProps.getUploadPath()+storedName, e);
         }
     }
 }

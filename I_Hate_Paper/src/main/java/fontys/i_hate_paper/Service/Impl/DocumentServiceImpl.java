@@ -39,7 +39,7 @@ public class DocumentServiceImpl implements DocumentService {
     }
 
     @Override
-    public Resource getDocumentByUUID(String uuid) {
+    public Resource getDocumentByUUID(String uuid) { //Unittest?
 
         Optional<Document> optionalDoc = docRepository.findByFileUUID(uuid);
 

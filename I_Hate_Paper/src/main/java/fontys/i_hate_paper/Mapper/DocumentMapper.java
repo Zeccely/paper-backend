@@ -8,15 +8,17 @@ import org.springframework.stereotype.Component;
 @Component
 public class DocumentMapper {
     public DocumentDTO toDocDTO(Document document) {
+
         DocumentDTO documentDTO = new DocumentDTO();
         documentDTO.setDescription(document.getDescription());
         documentDTO.setTitle(document.getTitle());
         documentDTO.setFileUUID(document.getFileUUID());
         documentDTO.setDeadline(String.valueOf(document.getDeadline()));
         documentDTO.setCategoryName(document.getCategory().getName());
+        documentDTO.setCategoryId(document.getCategory().getId());
+        documentDTO.setDocumentStoredName(document.getDocumentStoredName());
 
         return documentDTO;
-
     }
     public Document toDoc(DocumentDTO documentDTO) {
 
@@ -28,6 +30,5 @@ public class DocumentMapper {
         document.setDocumentStoredName(documentDTO.getDocumentStoredName());
 
         return document;
-
     }
 }
