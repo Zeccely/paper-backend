@@ -7,7 +7,7 @@ import org.springframework.security.core.Authentication;
 
 public interface AuthenticationService {
     User createUser(UserDTO userDTO);
-    User getUserbyUsername(String username);
+    User getUserByUsername(String username);
     AuthenticationResult loginWithToken(String username, String password);
     String refreshToken(String refreshToken);
     UserDTO AuthUser(Authentication authentication);

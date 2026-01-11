@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/users")
+@CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
 public class UserController {
 //due to lack of admin features, endpoints on Get for get users and getusers by id won't exist...
 //This is vulnerable to broken access control.

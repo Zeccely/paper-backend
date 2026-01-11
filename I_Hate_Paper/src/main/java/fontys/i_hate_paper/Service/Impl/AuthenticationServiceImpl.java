@@ -42,7 +42,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     }
 
     @Override
-    public User getUserbyUsername(String username) {
+    public User getUserByUsername(String username) {
         if (username == null) {
             throw new ValidationException("USER_IS_NULL", "There is no username");
         }
@@ -54,7 +54,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         if (username == null || password == null) {
             throw new ValidationException("DATA_IS_NULL", "One of the fields is null");
         }
-        User user = getUserbyUsername(username);
+        User user = getUserByUsername(username);
 
         if (!passwordEncoder.matches(password, user.getPasswordHash())) {
             throw new ValidationException("INVALID_CREDENTIALS", "Password is incorrect");

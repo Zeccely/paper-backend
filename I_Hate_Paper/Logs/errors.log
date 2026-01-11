@@ -1,70 +1,32 @@
-2026-01-10 13:35:09 ERROR org.springframework.boot.diagnostics.LoggingFailureAnalysisReporter - 
-
-***************************
-APPLICATION FAILED TO START
-***************************
-
-Description:
-
-Parameter 0 of constructor in fontys.i_hate_paper.Controller.DocumentStreamController required a bean of type 'fontys.i_hate_paper.Service.DocumentService' that could not be found.
-
-
-Action:
-
-Consider defining a bean of type 'fontys.i_hate_paper.Service.DocumentService' in your configuration.
-
-2026-01-10 14:25:35 ERROR org.springframework.boot.diagnostics.LoggingFailureAnalysisReporter - 
-
-***************************
-APPLICATION FAILED TO START
-***************************
-
-Description:
-
-Parameter 0 of constructor in fontys.i_hate_paper.Controller.DocumentStreamController required a bean of type 'fontys.i_hate_paper.Service.DocumentService' that could not be found.
-
-
-Action:
-
-Consider defining a bean of type 'fontys.i_hate_paper.Service.DocumentService' in your configuration.
-
-2026-01-10 14:43:02 ERROR org.springframework.boot.diagnostics.LoggingFailureAnalysisReporter - 
-
-***************************
-APPLICATION FAILED TO START
-***************************
-
-Description:
-
-Parameter 0 of constructor in fontys.i_hate_paper.Service.Impl.AuthenticationServiceImpl required a bean of type 'org.springframework.security.crypto.password.PasswordEncoder' that could not be found.
-
-
-Action:
-
-Consider defining a bean of type 'org.springframework.security.crypto.password.PasswordEncoder' in your configuration.
-
-2026-01-10 14:47:47 ERROR org.springframework.boot.diagnostics.LoggingFailureAnalysisReporter - 
-
-***************************
-APPLICATION FAILED TO START
-***************************
-
-Description:
-
-Parameter 0 of constructor in fontys.i_hate_paper.Service.Impl.AuthenticationServiceImpl required a bean of type 'org.springframework.security.crypto.password.PasswordEncoder' that could not be found.
-
-
-Action:
-
-Consider defining a bean of type 'org.springframework.security.crypto.password.PasswordEncoder' in your configuration.
-
-2026-01-10 16:56:54 ERROR com.zaxxer.hikari.HikariConfig - Failed to load driver class org.h2.Driver from HikariConfig class classloader jdk.internal.loader.ClassLoaders$AppClassLoader@5a07e868
-2026-01-10 16:56:54 ERROR org.springframework.boot.SpringApplication - Application run failed
-org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Failed to initialize dependency 'dataSourceScriptDatabaseInitializer' of LoadTimeWeaverAware bean 'entityManagerFactory': Error creating bean with name 'dataSourceScriptDatabaseInitializer' defined in class path resource [org/springframework/boot/autoconfigure/sql/init/DataSourceInitializationConfiguration.class]: Unsatisfied dependency expressed through method 'dataSourceScriptDatabaseInitializer' parameter 0: Error creating bean with name 'dataSource' defined in class path resource [org/springframework/boot/autoconfigure/jdbc/DataSourceConfiguration$Hikari.class]: Failed to instantiate [com.zaxxer.hikari.HikariDataSource]: Factory method 'dataSource' threw exception with message: Failed to load driver class org.h2.Driver in either of HikariConfig class loader or Thread context classloader
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:328)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:207)
-	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:970)
+2026-01-11 06:07:50 ERROR org.hibernate.tool.schema.internal.SchemaDropperImpl$DelayedDropActionImpl - HHH000478: Unsuccessful: drop table if exists user cascade 
+2026-01-11 06:08:54 ERROR org.hibernate.tool.schema.internal.SchemaDropperImpl$DelayedDropActionImpl - HHH000478: Unsuccessful: drop table if exists user cascade 
+2026-01-11 06:19:43 ERROR org.hibernate.tool.schema.internal.SchemaDropperImpl$DelayedDropActionImpl - HHH000478: Unsuccessful: drop table if exists user cascade 
+2026-01-11 06:19:43 ERROR org.springframework.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'springSecurityFilterChain': Cannot create inner bean '(inner bean)#7e80381d' of type [org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration$CompositeFilterChainProxy] while setting constructor argument with key [1]
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveInnerBeanValue(BeanDefinitionValueResolver.java:421)
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.lambda$resolveValueIfNecessary$1(BeanDefinitionValueResolver.java:153)
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveInnerBean(BeanDefinitionValueResolver.java:262)
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveValueIfNecessary(BeanDefinitionValueResolver.java:152)
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveManagedList(BeanDefinitionValueResolver.java:460)
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveValueIfNecessary(BeanDefinitionValueResolver.java:191)
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveConstructorArguments(ConstructorResolver.java:691)
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:206)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1395)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1232)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:569)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:529)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:373)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:315)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.instantiateSingleton(DefaultListableBeanFactory.java:1221)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingleton(DefaultListableBeanFactory.java:1187)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:1123)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:987)
 	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:627)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
 	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752)
 	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439)
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:318)
@@ -78,8 +40,8 @@ org.springframework.beans.factory.BeanCreationException: Error creating bean wit
 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContextInternal(DefaultCacheAwareContextLoaderDelegate.java:225)
 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:152)
 	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:130)
-	at org.springframework.test.context.web.ServletTestExecutionListener.setUpRequestContextIfNecessary(ServletTestExecutionListener.java:200)
-	at org.springframework.test.context.web.ServletTestExecutionListener.prepareTestInstance(ServletTestExecutionListener.java:139)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.injectDependencies(DependencyInjectionTestExecutionListener.java:155)
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.prepareTestInstance(DependencyInjectionTestExecutionListener.java:111)
 	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:260)
 	at org.springframework.test.context.junit.jupiter.SpringExtension.postProcessTestInstance(SpringExtension.java:159)
 	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$invokeTestInstancePostProcessors$10(ClassBasedTestDescriptor.java:383)
@@ -168,57 +130,80 @@ org.springframework.beans.factory.BeanCreationException: Error creating bean wit
 	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:65)
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
-Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'dataSourceScriptDatabaseInitializer' defined in class path resource [org/springframework/boot/autoconfigure/sql/init/DataSourceInitializationConfiguration.class]: Unsatisfied dependency expressed through method 'dataSourceScriptDatabaseInitializer' parameter 0: Error creating bean with name 'dataSource' defined in class path resource [org/springframework/boot/autoconfigure/jdbc/DataSourceConfiguration$Hikari.class]: Failed to instantiate [com.zaxxer.hikari.HikariDataSource]: Factory method 'dataSource' threw exception with message: Failed to load driver class org.h2.Driver in either of HikariConfig class loader or Thread context classloader
-	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:804)
-	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:546)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1375)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1205)
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name '(inner bean)#7e80381d': Cannot create inner bean '(inner bean)#7c666865' while setting constructor argument with key [1]
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveInnerBeanValue(BeanDefinitionValueResolver.java:421)
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.lambda$resolveValueIfNecessary$1(BeanDefinitionValueResolver.java:153)
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveInnerBean(BeanDefinitionValueResolver.java:262)
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveValueIfNecessary(BeanDefinitionValueResolver.java:152)
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveManagedList(BeanDefinitionValueResolver.java:460)
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveValueIfNecessary(BeanDefinitionValueResolver.java:191)
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveConstructorArguments(ConstructorResolver.java:691)
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:206)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1395)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1232)
 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:569)
 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:529)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339)
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:373)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:315)
-	... 106 common frames omitted
-Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'dataSource' defined in class path resource [org/springframework/boot/autoconfigure/jdbc/DataSourceConfiguration$Hikari.class]: Failed to instantiate [com.zaxxer.hikari.HikariDataSource]: Factory method 'dataSource' threw exception with message: Failed to load driver class org.h2.Driver in either of HikariConfig class loader or Thread context classloader
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveInnerBeanValue(BeanDefinitionValueResolver.java:407)
+	... 126 common frames omitted
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name '(inner bean)#7c666865' defined in class path resource [org/springframework/security/config/annotation/web/configuration/WebSecurityConfiguration.class]: Failed to instantiate [jakarta.servlet.Filter]: Factory method 'springSecurityFilterChain' threw exception with message: A filter chain that matches any request [DefaultSecurityFilterChain defined as 'filterChain' in [class path resource [fontys/i_hate_paper/TestSecurityConfig.class]] matching [any request] and having filters [DisableEncodeUrl, WebAsyncManagerIntegration, SecurityContextHolder, HeaderWriter, Logout, RequestCacheAware, SecurityContextHolderAwareRequest, AnonymousAuthentication, ExceptionTranslation, Authorization]] has already been configured, which means that this filter chain [DefaultSecurityFilterChain defined as 'securityFilterChain' in [class path resource [fontys/i_hate_paper/Configuration/SecurityConfiguration.class]] matching [any request] and having filters [DisableEncodeUrl, WebAsyncManagerIntegration, SecurityContextHolder, HeaderWriter, Cors, Logout, JWT, RequestCacheAware, SecurityContextHolderAwareRequest, AnonymousAuthentication, ExceptionTranslation, Authorization]] will never get invoked. Please use `HttpSecurity#securityMatcher` to ensure that there is only one filter chain configured for 'any request' and that the 'any request' filter chain is published last.
 	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:657)
 	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:645)
 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1375)
 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1205)
 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:569)
 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:529)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339)
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:373)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1698)
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1643)
-	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:913)
-	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:791)
-	... 116 common frames omitted
-Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.zaxxer.hikari.HikariDataSource]: Factory method 'dataSource' threw exception with message: Failed to load driver class org.h2.Driver in either of HikariConfig class loader or Thread context classloader
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveInnerBeanValue(BeanDefinitionValueResolver.java:407)
+	... 138 common frames omitted
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [jakarta.servlet.Filter]: Factory method 'springSecurityFilterChain' threw exception with message: A filter chain that matches any request [DefaultSecurityFilterChain defined as 'filterChain' in [class path resource [fontys/i_hate_paper/TestSecurityConfig.class]] matching [any request] and having filters [DisableEncodeUrl, WebAsyncManagerIntegration, SecurityContextHolder, HeaderWriter, Logout, RequestCacheAware, SecurityContextHolderAwareRequest, AnonymousAuthentication, ExceptionTranslation, Authorization]] has already been configured, which means that this filter chain [DefaultSecurityFilterChain defined as 'securityFilterChain' in [class path resource [fontys/i_hate_paper/Configuration/SecurityConfiguration.class]] matching [any request] and having filters [DisableEncodeUrl, WebAsyncManagerIntegration, SecurityContextHolder, HeaderWriter, Cors, Logout, JWT, RequestCacheAware, SecurityContextHolderAwareRequest, AnonymousAuthentication, ExceptionTranslation, Authorization]] will never get invoked. Please use `HttpSecurity#securityMatcher` to ensure that there is only one filter chain configured for 'any request' and that the 'any request' filter chain is published last.
 	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.lambda$instantiate$0(SimpleInstantiationStrategy.java:200)
 	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiateWithFactoryMethod(SimpleInstantiationStrategy.java:89)
 	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:169)
 	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:653)
-	... 129 common frames omitted
-Caused by: java.lang.RuntimeException: Failed to load driver class org.h2.Driver in either of HikariConfig class loader or Thread context classloader
-	at com.zaxxer.hikari.HikariConfig.setDriverClassName(HikariConfig.java:514)
-	at org.springframework.boot.jdbc.DataSourceBuilder$MappedDataSourceProperty.set(DataSourceBuilder.java:478)
-	at org.springframework.boot.jdbc.DataSourceBuilder$MappedDataSourceProperties.set(DataSourceBuilder.java:370)
-	at org.springframework.boot.jdbc.DataSourceBuilder.build(DataSourceBuilder.java:185)
-	at org.springframework.boot.autoconfigure.jdbc.DataSourceConfiguration.createDataSource(DataSourceConfiguration.java:67)
-	at org.springframework.boot.autoconfigure.jdbc.DataSourceConfiguration$Hikari.dataSource(DataSourceConfiguration.java:127)
+	... 144 common frames omitted
+Caused by: org.springframework.security.web.UnreachableFilterChainException: A filter chain that matches any request [DefaultSecurityFilterChain defined as 'filterChain' in [class path resource [fontys/i_hate_paper/TestSecurityConfig.class]] matching [any request] and having filters [DisableEncodeUrl, WebAsyncManagerIntegration, SecurityContextHolder, HeaderWriter, Logout, RequestCacheAware, SecurityContextHolderAwareRequest, AnonymousAuthentication, ExceptionTranslation, Authorization]] has already been configured, which means that this filter chain [DefaultSecurityFilterChain defined as 'securityFilterChain' in [class path resource [fontys/i_hate_paper/Configuration/SecurityConfiguration.class]] matching [any request] and having filters [DisableEncodeUrl, WebAsyncManagerIntegration, SecurityContextHolder, HeaderWriter, Cors, Logout, JWT, RequestCacheAware, SecurityContextHolderAwareRequest, AnonymousAuthentication, ExceptionTranslation, Authorization]] will never get invoked. Please use `HttpSecurity#securityMatcher` to ensure that there is only one filter chain configured for 'any request' and that the 'any request' filter chain is published last.
+	at org.springframework.security.config.annotation.web.builders.WebSecurityFilterChainValidator.checkForAnyRequestRequestMatcher(WebSecurityFilterChainValidator.java:59)
+	at org.springframework.security.config.annotation.web.builders.WebSecurityFilterChainValidator.validate(WebSecurityFilterChainValidator.java:47)
+	at org.springframework.security.web.FilterChainProxy.afterPropertiesSet(FilterChainProxy.java:178)
+	at org.springframework.security.config.annotation.web.builders.WebSecurity.performBuild(WebSecurity.java:351)
+	at org.springframework.security.config.annotation.web.builders.WebSecurity.performBuild(WebSecurity.java:98)
+	at org.springframework.security.config.annotation.AbstractConfiguredSecurityBuilder.doBuild(AbstractConfiguredSecurityBuilder.java:355)
+	at org.springframework.security.config.annotation.AbstractSecurityBuilder.build(AbstractSecurityBuilder.java:38)
+	at org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration.springSecurityFilterChain(WebSecurityConfiguration.java:132)
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
 	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.lambda$instantiate$0(SimpleInstantiationStrategy.java:172)
-	... 132 common frames omitted
-2026-01-10 17:00:21 ERROR org.hibernate.tool.schema.internal.SchemaDropperImpl$DelayedDropActionImpl - HHH000478: Unsuccessful: drop table if exists user cascade 
-2026-01-10 17:05:07 ERROR org.hibernate.tool.schema.internal.SchemaDropperImpl$DelayedDropActionImpl - HHH000478: Unsuccessful: drop table if exists user cascade 
-2026-01-10 17:11:31 ERROR org.hibernate.tool.schema.internal.SchemaDropperImpl$DelayedDropActionImpl - HHH000478: Unsuccessful: drop table if exists user cascade 
-2026-01-10 17:12:57 ERROR org.hibernate.tool.schema.internal.SchemaDropperImpl$DelayedDropActionImpl - HHH000478: Unsuccessful: drop table if exists user cascade 
-2026-01-10 17:13:23 ERROR org.hibernate.tool.schema.internal.SchemaDropperImpl$DelayedDropActionImpl - HHH000478: Unsuccessful: drop table if exists user cascade 
-2026-01-10 17:52:09 ERROR org.hibernate.tool.schema.internal.SchemaDropperImpl$DelayedDropActionImpl - HHH000478: Unsuccessful: drop table if exists user cascade 
-2026-01-10 17:58:39 ERROR org.hibernate.tool.schema.internal.SchemaDropperImpl$DelayedDropActionImpl - HHH000478: Unsuccessful: drop table if exists user cascade 
-2026-01-10 18:00:34 ERROR org.hibernate.tool.schema.internal.SchemaDropperImpl$DelayedDropActionImpl - HHH000478: Unsuccessful: drop table if exists user cascade 
+	... 147 common frames omitted
+2026-01-11 06:19:48 ERROR org.hibernate.tool.schema.internal.SchemaDropperImpl$DelayedDropActionImpl - HHH000478: Unsuccessful: drop table if exists user cascade 
+2026-01-11 10:29:01 ERROR org.springframework.boot.diagnostics.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Parameter 0 of constructor in fontys.i_hate_paper.Service.Impl.AuthenticationServiceImpl required a bean of type 'org.springframework.security.crypto.password.PasswordEncoder' that could not be found.
+
+
+Action:
+
+Consider defining a bean of type 'org.springframework.security.crypto.password.PasswordEncoder' in your configuration.
+
+2026-01-11 10:30:40 ERROR org.springframework.boot.diagnostics.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Parameter 0 of constructor in fontys.i_hate_paper.Service.Impl.AuthenticationServiceImpl required a bean of type 'org.springframework.security.crypto.password.PasswordEncoder' that could not be found.
+
+
+Action:
+
+Consider defining a bean of type 'org.springframework.security.crypto.password.PasswordEncoder' in your configuration.
+
+2026-01-11 11:33:56 ERROR org.hibernate.tool.schema.internal.SchemaDropperImpl$DelayedDropActionImpl - HHH000478: Unsuccessful: drop table if exists user cascade 
+2026-01-11 11:36:18 ERROR org.hibernate.tool.schema.internal.SchemaDropperImpl$DelayedDropActionImpl - HHH000478: Unsuccessful: drop table if exists user cascade 
+2026-01-11 11:41:00 ERROR org.hibernate.tool.schema.internal.SchemaDropperImpl$DelayedDropActionImpl - HHH000478: Unsuccessful: drop table if exists user cascade 

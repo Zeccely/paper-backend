@@ -6,6 +6,8 @@ import io.jsonwebtoken.Claims;
 public interface JWTService {
     String createAccessToken(User user);
     String createRefreshToken(User user);
-    Claims validateToken (String token);
+    Claims parseClaims (String token);
     Integer getUserIdRefreshToken(String token);
+
+    String extractUsername(String token);
 }

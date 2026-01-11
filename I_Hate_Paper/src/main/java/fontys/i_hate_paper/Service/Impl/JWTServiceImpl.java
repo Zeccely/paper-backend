@@ -57,8 +57,8 @@ public class JWTServiceImpl implements JWTService {
                 .compact();
     }
 
-    @Override
-    public Claims validateToken(String token) {
+
+    public Claims parseClaims(String token) {
         return Jwts.parser()
                 .verifyWith(key)
                 .build()
@@ -72,7 +72,7 @@ public class JWTServiceImpl implements JWTService {
             throw new ValidationException("REFRESH_TOKEN_MISSING", "Refresh token is missing");
         }
 
-        Claims claims = validateToken(token);
+        Claims claims = parseClaims(token);
 
         String userIdStr = claims.getSubject();
         Integer userId; //I am also primitive.
@@ -85,5 +85,10 @@ public class JWTServiceImpl implements JWTService {
 
 
         return userId;
+    }
+
+    @Override
+    public String extractUsername(String token) {
+        return "";
     }
 }

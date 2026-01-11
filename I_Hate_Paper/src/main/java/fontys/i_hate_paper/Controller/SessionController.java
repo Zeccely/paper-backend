@@ -13,8 +13,7 @@ import org.springframework.http.ResponseCookie;
 
 @RestController
 @RequestMapping("/api/sessions")
-
-
+@CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
 public class SessionController {
     private final AuthenticationService authenticationService;
 

@@ -14,7 +14,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import fontys.i_hate_paper.Filter.JWTFilter;
+import fontys.i_hate_paper.Filter.JWTAuthFilter;
+
 
 
 import java.util.List;
@@ -23,26 +24,19 @@ import java.util.List;
 @EnableWebSecurity
 public class SecurityConfiguration {
 
-    @Bean
-    public JWTFilter jwtFilter(JWTService jwtService) {
-        return new JWTFilter(jwtService);
-    }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http, JWTFilter jwtFilter) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, JWTAuthFilter jwtAuthFilter) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable //you are SOOOO annoying!
                 )
                 .cors(cors -> {})
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .requestMatchers("/api/sessions/**").permitAll()
-                        .requestMatchers(HttpMethod.DELETE, "/api/sessions").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/users").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/documents/upload").permitAll() //I NEED TO TEST, PLEASE
-                        .requestMatchers(HttpMethod.POST, "/api/documents/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/documents/**").permitAll()
                         .anyRequest().authenticated()
-                ).addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+                ).addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
             return http.build();
 
