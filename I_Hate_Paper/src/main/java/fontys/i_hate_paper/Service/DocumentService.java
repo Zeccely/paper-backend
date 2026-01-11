@@ -7,7 +7,9 @@ import org.springframework.core.io.Resource;
 import java.util.List;
 
 public interface DocumentService {
-    Resource getDocumentByUUID(String UUID);
+    Resource getDocumentFileByUUID(String UUID);
     DocumentDTO saveDocument(DocumentDTO document);
     List<DocumentDTO> getAllDocuments();
+    DocumentDTO getDocumentByUUID(String UUID);
+
 }

@@ -2,6 +2,7 @@ package fontys.i_hate_paper.Service.Impl;
 
 import fontys.i_hate_paper.Configuration.DocumentStorageProperties;
 import fontys.i_hate_paper.Exception.StorageException;
+import fontys.i_hate_paper.Exception.ValidationException;
 import fontys.i_hate_paper.Service.StorageService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,11 +16,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.Paths;
+import java.util.List;
 
 @Service
 public class StorageServiceImpl implements StorageService {
 
     private static final Logger logger = LoggerFactory.getLogger(StorageServiceImpl.class); //this is not a constructor. this isn't a bean either
+    private final List<String> allowedExtensions = List.of("pdf", "png", "jpg", "jpeg");
     private final DocumentStorageProperties docProps;
 
     public StorageServiceImpl(DocumentStorageProperties docProps) {
@@ -56,5 +59,37 @@ public class StorageServiceImpl implements StorageService {
             logger.error("Document path not found: {}", docProps.getUploadPath()+storedName);
             throw new StorageException("PATH_NOT_FOUND", "Could not read file: " + docProps.getUploadPath()+storedName, e);
         }
+    }
+
+    public void validateExtension(MultipartFile file) {
+
+        String originalName = file.getOriginalFilename();
+
+        if (originalName== null || !originalName.contains(".")) {
+            throw new ValidationException("INVALID_FILE", "Invalid file");
+        }
+
+        String extension = getFileExtension(originalName);
+
+        if (extension.isBlank()) {
+            throw new ValidationException("INVALID_FILE_EXTENSION", "There is no extension");
+        }
+
+        if (!allowedExtensions.contains(extension)) {
+            throw new ValidationException("INVALID_FILE_EXTENSION", "Invalid file extension: " + extension);
+        }
+
+    }
+
+    public String getFileExtension(String filename) {
+
+        if (filename == null) {
+            return null;
+        }
+        int dotIndex = filename.lastIndexOf(".");
+        if (dotIndex >= 0) {
+            return filename.substring(dotIndex + 1);
+        }
+        return "";
     }
 }

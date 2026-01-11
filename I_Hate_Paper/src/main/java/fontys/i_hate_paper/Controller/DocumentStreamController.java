@@ -1,6 +1,7 @@
 package fontys.i_hate_paper.Controller;
 
 import fontys.i_hate_paper.DTOs.DocumentDTO;
+import fontys.i_hate_paper.Exception.StorageException;
 import fontys.i_hate_paper.Service.DocumentService;
 
 import org.springframework.core.io.Resource;
@@ -31,9 +32,9 @@ public class DocumentStreamController {
     }
 
     @GetMapping("/{uuid}")
-    public ResponseEntity<Resource> downloadDocument(@PathVariable String uuid) {
-        Resource DTO = documentService.getDocumentByUUID(uuid);
-        return ResponseEntity.ok(DTO);
+    public ResponseEntity<DocumentDTO> getDocumentById(@PathVariable String uuid) {
+
+        return null;
     }
 
     @GetMapping
@@ -41,4 +42,42 @@ public class DocumentStreamController {
         List<DocumentDTO> documents = documentService.getAllDocuments();
         return ResponseEntity.ok(documents);
     }
+
+    @GetMapping("/{uuid}/file")
+    public ResponseEntity<Resource> getFile(@PathVariable String uuid) {
+
+        Resource file = documentService.getDocumentFileByUUID(uuid);
+        String filename = file.getFilename();
+        String extension = getExtension(filename);
+
+        MediaType mediaType;
+
+        if (extension.equals("png")) {
+            mediaType = MediaType.IMAGE_PNG;
+        } else if (extension.equals("jpg") || extension.equals("jpeg")) {
+            mediaType = MediaType.IMAGE_JPEG;
+        } else if (extension.equals("pdf")) {
+            mediaType = MediaType.APPLICATION_PDF;
+        } else {
+            throw new StorageException("INVALID_FILE_STATE", "Invalid stored file type");
+        }
+
+        return ResponseEntity.ok()
+                .contentType(mediaType)
+                .header("Content-Disposition", "inline")
+                .body(file);
+    }
+    //will this work?
+    public String getExtension(String filename) {
+
+        if (filename == null) {
+            return null;
+        }
+        int dotIndex = filename.lastIndexOf(".");
+        if (dotIndex >= 0) {
+            return filename.substring(dotIndex + 1);
+        }
+        return "";
+    }
+
 }

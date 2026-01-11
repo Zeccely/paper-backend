@@ -4,6 +4,7 @@ import fontys.i_hate_paper.DTOs.ErrorDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -37,6 +38,14 @@ public class GlobalExceptionHandler {
         error.setCode("INTERNAL_ERROR");
         error.setMessage("Something went wrong");
         return ResponseEntity.status(500).body(error);
+    }
+
+    @ExceptionHandler (MaxUploadSizeExceededException.class)
+    public ResponseEntity<ErrorDTO> handleMaxUploadSize(MaxUploadSizeExceededException ex) {
+        ErrorDTO errorDTO = new ErrorDTO();
+        errorDTO.setCode("FILE_SIZE_LIMIT_EXCEEDED");
+        errorDTO.setMessage("Maximum Upload Size Exceeded");
+        return ResponseEntity.badRequest().body(errorDTO);
     }
 }
 

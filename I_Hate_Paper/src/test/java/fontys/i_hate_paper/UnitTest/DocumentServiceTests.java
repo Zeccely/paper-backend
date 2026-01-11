@@ -45,9 +45,10 @@ public class DocumentServiceTests {
         documentDTO.setDescription("description");
         documentDTO.setCategoryId(1);
         documentDTO.setDeadline("2027-05-28");
-        MultipartFile thisfile = mock(MultipartFile.class);
-        documentDTO.setFile(thisfile);
-        when(thisfile.getOriginalFilename()).thenReturn("filename.extension");
+        MultipartFile thisFile = mock(MultipartFile.class);
+        documentDTO.setFile(thisFile);
+        doNothing().when(storageService).validateExtension(thisFile);
+        when(storageService.getFileExtension("filename.extension")).thenReturn("extension");
         Category category = new Category();
         when(categoryService.getOrCreateCategory("category")).thenReturn(category);
 
@@ -61,7 +62,8 @@ public class DocumentServiceTests {
         DocumentDTO testing = documentService.saveDocument(documentDTO);
 
         //Assert
-        verify(storageService).storeDocument(eq(thisfile), endsWith(".extension"));
+        verify(storageService).validateExtension(thisFile);
+        verify(storageService).storeDocument(eq(thisFile), endsWith(".extension"));
         verify(categoryService).getOrCreateCategory("category");
         verify(docRepository).save(savedDocument);
     }
@@ -78,7 +80,8 @@ public class DocumentServiceTests {
         documentDTO.setDeadline("2027-05-28");
         MultipartFile multipartFile = mock(MultipartFile.class);
         documentDTO.setFile(multipartFile);
-        when(multipartFile.getOriginalFilename()).thenReturn("filename.extension");
+        doNothing().when(storageService).validateExtension(multipartFile);
+        when(storageService.getFileExtension("filename.extension")).thenReturn("extension");
         Category category = new Category();
         when(categoryService.getOrCreateCategory("category")).thenReturn(category);
 
@@ -97,5 +100,5 @@ public class DocumentServiceTests {
         verify(docRepository, never()).save(any(Document.class));
     }
 
-
+//dry was violated again and it hurts a lot
 }

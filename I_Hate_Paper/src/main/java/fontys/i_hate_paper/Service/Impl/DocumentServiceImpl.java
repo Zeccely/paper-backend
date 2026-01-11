@@ -39,7 +39,7 @@ public class DocumentServiceImpl implements DocumentService {
     }
 
     @Override
-    public Resource getDocumentByUUID(String uuid) { //Unittest?
+    public Resource getDocumentFileByUUID(String uuid) { //Unittest?
 
         Optional<Document> optionalDoc = docRepository.findByFileUUID(uuid);
 
@@ -66,7 +66,8 @@ public class DocumentServiceImpl implements DocumentService {
 
         MultipartFile incoming_doc = documentDTO.getFile();
         String Uuid = UUID.randomUUID().toString();
-        String NameInFolder = Uuid + "." + getFileExtension(incoming_doc.getOriginalFilename());
+        storageService.validateExtension(incoming_doc); //yay
+        String NameInFolder = Uuid + "." + storageService.getFileExtension(incoming_doc.getOriginalFilename());
 
         storageService.storeDocument(incoming_doc, NameInFolder);
 
@@ -82,6 +83,7 @@ public class DocumentServiceImpl implements DocumentService {
 
     @Override
     public List<DocumentDTO> getAllDocuments() {
+
         List<DocumentDTO> documents = new ArrayList<>();
         for (Document file : docRepository.findAll()) {
             DocumentDTO dtoFiles = documentMapper.toDocDTO(file);
@@ -90,17 +92,18 @@ public class DocumentServiceImpl implements DocumentService {
         return documents;
     }
 
-    String getFileExtension(String filename) {
-        if (filename == null) {
-            return null;
-        }
-        int dotIndex = filename.lastIndexOf(".");
-        if (dotIndex >= 0) {
-            return filename.substring(dotIndex + 1);
-        }
-        return "";
-    }
+    public DocumentDTO getDocumentByUUID(String UUID) {
 
+        Optional<Document> optionalDoc = docRepository.findByFileUUID(UUID);
+
+        if (optionalDoc.isEmpty()) {
+            logger.error("Document with uuid {} not found", UUID);
+            throw new StorageException("DOCUMENT_NOT_FOUND","Document not found for uuid: " + UUID);
+        }
+
+        Document doc = optionalDoc.get();
+        return documentMapper.toDocDTO(doc);
+    }
 
 
 }
