@@ -28,7 +28,7 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http, JWTAuthFilter jwtAuthFilter) throws Exception {
         http
-                .csrf(AbstractHttpConfigurer::disable //you are SOOOO annoying!
+                .csrf(AbstractHttpConfigurer::disable
                 )
                 .cors(cors -> {})
                 .authorizeHttpRequests(auth -> auth

@@ -46,6 +46,7 @@ public class DocumentServiceTests {
         documentDTO.setCategoryId(1);
         documentDTO.setDeadline("2027-05-28");
         MultipartFile thisFile = mock(MultipartFile.class);
+        when(thisFile.getOriginalFilename()).thenReturn("filename.extension");
         documentDTO.setFile(thisFile);
         doNothing().when(storageService).validateExtension(thisFile);
         when(storageService.getFileExtension("filename.extension")).thenReturn("extension");

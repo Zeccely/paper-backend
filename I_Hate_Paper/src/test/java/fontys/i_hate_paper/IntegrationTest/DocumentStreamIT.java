@@ -5,6 +5,7 @@ import static io.restassured.RestAssured.*;
 import static java.util.Optional.empty;
 import static org.hamcrest.Matchers.*;
 
+import io.restassured.specification.RequestSpecification;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,16 +17,19 @@ import java.util.List;
 @TestPropertySource("classpath:application-test.properties")
 @SpringBootTest (webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class DocumentStreamIT {
-    //BDD Behaviour driven development. Given this occurence if I click this (when) I will get that (then)
+    //BDD Behaviour driven development. Given this occurrence if I click this (when) I will get that (then)
 
     @LocalServerPort
     Integer serverPort;
     byte[] pdfBytes = "fake pdf content".getBytes();
+    RequestSpecification authSpec;
+
 
     @BeforeEach
     void setup() {
         baseURI = "http://localhost";
         port = serverPort;
+        authSpec = AuthTestHelper.loginAndBuildSpec(port);
     }
 
     @Test

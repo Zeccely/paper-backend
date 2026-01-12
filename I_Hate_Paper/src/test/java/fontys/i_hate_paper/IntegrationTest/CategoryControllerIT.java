@@ -4,6 +4,7 @@ import static io.restassured.RestAssured.*;
 import static java.util.Optional.empty;
 import static org.hamcrest.Matchers.*;
 
+import io.restassured.specification.RequestSpecification;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,11 +20,14 @@ public class CategoryControllerIT {
 
     @LocalServerPort
     Integer serverPort;
+    RequestSpecification authSpec;
+
 
     @BeforeEach
     void setup() {
         baseURI = "http://localhost";
         port = serverPort;
+        authSpec = AuthTestHelper.loginAndBuildSpec(port);
     }
 
     @Test

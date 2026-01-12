@@ -207,3 +207,22 @@ Consider defining a bean of type 'org.springframework.security.crypto.password.P
 2026-01-11 11:33:56 ERROR org.hibernate.tool.schema.internal.SchemaDropperImpl$DelayedDropActionImpl - HHH000478: Unsuccessful: drop table if exists user cascade 
 2026-01-11 11:36:18 ERROR org.hibernate.tool.schema.internal.SchemaDropperImpl$DelayedDropActionImpl - HHH000478: Unsuccessful: drop table if exists user cascade 
 2026-01-11 11:41:00 ERROR org.hibernate.tool.schema.internal.SchemaDropperImpl$DelayedDropActionImpl - HHH000478: Unsuccessful: drop table if exists user cascade 
+2026-01-11 23:02:59 ERROR org.hibernate.tool.schema.internal.SchemaDropperImpl$DelayedDropActionImpl - HHH000478: Unsuccessful: drop table if exists user cascade 
+2026-01-11 23:14:47 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper - Syntax error in SQL statement "insert into [*]user (email,password_hash,username,id) values (?,?,?,default)"; expected "identifier"; SQL statement:
+insert into user (email,password_hash,username,id) values (?,?,?,default) [42001-240]
+2026-01-11 23:14:47 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper - Syntax error in SQL statement "insert into [*]user (email,password_hash,username,id) values (?,?,?,default)"; expected "identifier"; SQL statement:
+insert into user (email,password_hash,username,id) values (?,?,?,default) [42001-240]
+2026-01-11 23:14:47 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper - Syntax error in SQL statement "insert into [*]user (email,password_hash,username,id) values (?,?,?,default)"; expected "identifier"; SQL statement:
+insert into user (email,password_hash,username,id) values (?,?,?,default) [42001-240]
+2026-01-11 23:14:47 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper - Syntax error in SQL statement "insert into [*]user (email,password_hash,username,id) values (?,?,?,default)"; expected "identifier"; SQL statement:
+insert into user (email,password_hash,username,id) values (?,?,?,default) [42001-240]
+2026-01-11 23:14:49 ERROR org.hibernate.tool.schema.internal.SchemaDropperImpl$DelayedDropActionImpl - HHH000478: Unsuccessful: drop table if exists user cascade 
+2026-01-11 23:15:42 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper - Syntax error in SQL statement "insert into [*]user (email,password_hash,username,id) values (?,?,?,default)"; expected "identifier"; SQL statement:
+insert into user (email,password_hash,username,id) values (?,?,?,default) [42001-240]
+2026-01-11 23:15:42 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper - Syntax error in SQL statement "insert into [*]user (email,password_hash,username,id) values (?,?,?,default)"; expected "identifier"; SQL statement:
+insert into user (email,password_hash,username,id) values (?,?,?,default) [42001-240]
+2026-01-11 23:15:42 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper - Syntax error in SQL statement "insert into [*]user (email,password_hash,username,id) values (?,?,?,default)"; expected "identifier"; SQL statement:
+insert into user (email,password_hash,username,id) values (?,?,?,default) [42001-240]
+2026-01-11 23:15:42 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper - Syntax error in SQL statement "insert into [*]user (email,password_hash,username,id) values (?,?,?,default)"; expected "identifier"; SQL statement:
+insert into user (email,password_hash,username,id) values (?,?,?,default) [42001-240]
+2026-01-11 23:15:44 ERROR org.hibernate.tool.schema.internal.SchemaDropperImpl$DelayedDropActionImpl - HHH000478: Unsuccessful: drop table if exists user cascade 

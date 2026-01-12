@@ -12,6 +12,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table(name = "users")
 public class User {
     @Id //this is already a primary key
     @GeneratedValue(strategy = GenerationType.IDENTITY)
