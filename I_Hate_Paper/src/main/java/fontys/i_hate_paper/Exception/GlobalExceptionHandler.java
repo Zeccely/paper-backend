@@ -21,7 +21,7 @@ public class GlobalExceptionHandler {
         ErrorDTO error = new ErrorDTO();
         error.setCode(ex.getCode());
         error.setMessage(ex.getMessage());
-        return ResponseEntity.status(500).body(error);
+        return ResponseEntity.status(501).body(error);
     }
 
     @ExceptionHandler(ValidationException.class)
