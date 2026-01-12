@@ -32,7 +32,7 @@ public class StorageServiceImpl implements StorageService {
     @Override
     public void storeDocument(MultipartFile incoming_doc, String fileName) {
 
-        try (FileOutputStream output = new FileOutputStream(docProps.getUploadPath()+File.separator+fileName))
+        try (FileOutputStream output = new FileOutputStream(System.getProperty("user.dir") + File.separator +docProps.getUploadPath()+File.separator+fileName))
         {
             output.write(incoming_doc.getBytes());
             logger.info("Saving document with name {}", incoming_doc.getOriginalFilename());
