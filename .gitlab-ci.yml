@@ -16,7 +16,7 @@ build:
   stage: build
   before_script:
     - cd "$Env:CI_PROJECT_DIR\I_Hate_Paper" 
-    - mkdir Dokks
+    - mkdir -p Dokks
   script:
     - .\gradlew assemble
   artifacts:
@@ -39,6 +39,7 @@ build-sonar:
       - "C:\\sonar-cache\\cache" 
   before_script:
     - cd "$Env:CI_PROJECT_DIR\I_Hate_Paper"
+    - mkdir -p Dokks
   script:
     - .\gradlew sonar
   allow_failure: true
