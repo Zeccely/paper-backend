@@ -22,14 +22,14 @@ public class DocumentStreamIT {
     @LocalServerPort
     Integer serverPort;
     byte[] pdfBytes = "fake pdf content".getBytes();
-    RequestSpecification authSpec;
+    //RequestSpecification authSpec;
 
 
     @BeforeEach
     void setup() {
         baseURI = "http://localhost";
         port = serverPort;
-        authSpec = AuthTestHelper.loginAndBuildSpec(port);
+      //  authSpec = AuthTestHelper.loginAndBuildSpec(port);
     }
 
     @Test

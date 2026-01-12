@@ -9,7 +9,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
-import org.springframework.context.annotation.Import;
 import org.springframework.test.context.TestPropertySource;
 
 import java.util.List;
@@ -20,14 +19,14 @@ public class CategoryControllerIT {
 
     @LocalServerPort
     Integer serverPort;
-    RequestSpecification authSpec;
+    //RequestSpecification authSpec;
 
 
     @BeforeEach
     void setup() {
         baseURI = "http://localhost";
         port = serverPort;
-        authSpec = AuthTestHelper.loginAndBuildSpec(port);
+        //authSpec = AuthTestHelper.loginAndBuildSpec(port);
     }
 
     @Test

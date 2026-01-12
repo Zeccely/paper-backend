@@ -20,6 +20,8 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
+//I used help here
+
 @RequiredArgsConstructor
 @Component
 public class JWTAuthFilter extends OncePerRequestFilter {
@@ -34,31 +36,25 @@ public class JWTAuthFilter extends OncePerRequestFilter {
             @NonNull FilterChain filterChain
     ) throws ServletException, IOException {
 
-        // 1) Read access token from cookie
         String token = CookieUtils.getCookieValue(request, "ACCESS");
 
-        // No token -> just continue
         if (token == null || token.isBlank()) {
             filterChain.doFilter(request, response);
             return;
         }
 
-        // 2) Only set auth if not already set
         Authentication existingAuth = SecurityContextHolder.getContext().getAuthentication();
         if (existingAuth == null || !existingAuth.isAuthenticated()) {
 
-            // 3) Parse/validate token (your method returns Claims or throws)
             Claims claims;
             try {
                 claims = jwtService.parseClaims(token);
             } catch (Exception e) {
-                // Invalid/expired token -> ignore, continue without auth
                 filterChain.doFilter(request, response);
                 return;
             }
 
-            // 4) Extract username/email from token subject
-            String username = claims.getSubject(); // subject = username/email
+            String username = claims.getSubject();
 
             if (username != null && !username.isBlank()) {
                 UserDetails userDetails = userDetailsService.loadUserByUsername(username);
@@ -74,8 +70,6 @@ public class JWTAuthFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(authToken);
             }
         }
-
-        // 5) Continue chain
         filterChain.doFilter(request, response);
     }
 }

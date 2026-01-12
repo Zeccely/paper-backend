@@ -30,10 +30,15 @@ public class DocumentStreamController {
         return ResponseEntity.ok(done);
     }
 
+    @GetMapping("/ha")
+    public ResponseEntity<String> test(){
+        return ResponseEntity.ok("hi");
+    }
+
     @GetMapping("/{uuid}")
     public ResponseEntity<DocumentDTO> getDocumentById(@PathVariable String uuid) {
 
-        return null;
+        return null; //TODO: implement this later
     }
 
     @GetMapping
