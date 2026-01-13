@@ -41,7 +41,7 @@ build-sonar:
     - cd "$Env:CI_PROJECT_DIR\I_Hate_Paper"
     - New-Item -ItemType Directory -Force -Path "Dokks"
   script:
-    - .\gradlew.bat jacocoTestReport sonar
+    - .\gradlew jacocoTestReport sonar
   allow_failure: true
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
