@@ -21,6 +21,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 
 //I used help here
+//TODO: Take time to understand this fully JWT is so annoying but it is so cool
 
 @RequiredArgsConstructor
 @Component

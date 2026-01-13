@@ -32,14 +32,14 @@ public class StorageServiceImpl implements StorageService {
     @Override
     public void storeDocument(MultipartFile incoming_doc, String fileName) {
 
-        try (FileOutputStream output = new FileOutputStream(System.getProperty("user.dir") + File.separator +docProps.getUploadPath()+File.separator+fileName))
+        try (FileOutputStream output = new FileOutputStream(System.getProperty("user.dir") + File.separator + docProps.getUploadPath() + File.separator+fileName))
         {
             output.write(incoming_doc.getBytes());
-            logger.info("Saving document with name {}", incoming_doc.getOriginalFilename());
+            logger.info("Saving document with name {}", fileName);
 
         } catch (IOException e) {
-            logger.error("Failed to save document with name {}", incoming_doc.getOriginalFilename(), e);
-            throw new StorageException("DOCUMENT_SAVE_FAILED", "Failed to save document: " + incoming_doc.getOriginalFilename(), e);
+            logger.error("Failed to save document with name {}", fileName, e);
+            throw new StorageException("DOCUMENT_SAVE_FAILED", "Failed to save document: " + fileName, e);
         }
     }
 
