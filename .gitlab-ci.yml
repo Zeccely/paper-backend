@@ -40,7 +40,6 @@ build-sonar:
   before_script:
     - cd "$Env:CI_PROJECT_DIR\I_Hate_Paper"
   script:
-script:
     - .\gradlew sonar "-Dsonar.java.binaries=build/libs" "-Dsonar.jacoco.reportPaths=build/reports/jacoco/test/jacocoTestReport.xml"
   allow_failure: true
   rules:
