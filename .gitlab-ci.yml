@@ -39,6 +39,7 @@ build-sonar:
       - "C:\\sonar-cache\\cache" 
   before_script:
     - cd "$Env:CI_PROJECT_DIR\I_Hate_Paper"
+    - New-Item -ItemType Directory -Force -Path "Dokks"
   script:
     - .\gradlew.bat jacocoTestReport sonar
   allow_failure: true
